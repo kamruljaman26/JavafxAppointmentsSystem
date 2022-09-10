@@ -1,4 +1,4 @@
-package com.appoinments.system.utils;
+package com.appointments.system.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
