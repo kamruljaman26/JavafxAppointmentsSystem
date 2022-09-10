@@ -51,12 +51,4 @@ public class LanguageUtil {
     public static Locale getLocale() {
         return locale;
     }
-
-    //    // test main
-//    public static void main(String[] args) {
-//        setLanguage("fr");
-//        setCountry("FR");
-//        System.out.println(getString("wish"));
-//        System.out.println(getLanguage());
-//    }
 }

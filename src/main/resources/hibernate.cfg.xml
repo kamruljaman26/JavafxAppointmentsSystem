@@ -28,7 +28,7 @@
 <!--        <property name="current_session_context_class">thread</property>-->
 
         <!-- Hibernate Entity Mapping Class -->
-<!--        <mapping class="model.Product"/>-->
+        <mapping class="com.appointments.system.model.Customer"/>
 <!--        <mapping class="model.Category"/>-->
 
     </session-factory>
