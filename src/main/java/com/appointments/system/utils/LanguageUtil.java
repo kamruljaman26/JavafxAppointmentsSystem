@@ -5,44 +5,58 @@ import java.util.ResourceBundle;
 
 public class LanguageUtil {
 
-    private static String selectedLanguage = getSystemLanguage();
-    private static String selectedCountry = getSystemOrigin();
+    private static Locale locale = Locale.getDefault();
+    private static String selectedLanguage = locale.getLanguage();
+    private static String selectedCountry = locale.getCountry();
 
-    public static void main(String[] args) {
-        System.out.println(getString("wish"));
-    }
-
-    public static String getString(String key){
-        String lang = "fr";
-        String country = "US";
-//        setSelectedCountry(country);
-        setSelectedLanguage(lang);
-        Locale locale = new Locale(getSelectedLanguage(), getSelectedCountry());
+    /**
+     * Get string from resource bundle
+     *
+     * @param key bundle key
+     */
+    public static String getString(String key) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("bundle", locale);
         return resourceBundle.getString(key);
     }
 
-    public static String getSystemLanguage() {
-        return System.getProperty("user.language");
-    }
-
-    public static String getSystemOrigin() {
-        return System.getProperty("user.language");
-    }
-
-    public static String getSelectedLanguage() {
+    // return current selected language
+    public static String getLanguage() {
         return selectedLanguage;
     }
 
-    public static String getSelectedCountry() {
+    // return current selected country
+    public static String getCountry() {
         return selectedCountry;
     }
 
-    public static void setSelectedLanguage(String selectedLanguage) {
-        LanguageUtil.selectedLanguage = selectedLanguage;
+    /**
+     * Set/change interface country
+     * @param country os
+     */
+    public static void setCountry(String country) {
+        locale = new Locale(getLanguage(), country); // update locale
+        LanguageUtil.selectedCountry = country;
     }
 
-    public static void setSelectedCountry(String selectedCountry) {
-        LanguageUtil.selectedCountry = selectedCountry;
+    /**
+     * Set/change interface language
+     * @param language os
+     */
+    public static void setLanguage(String language) {
+        locale = new Locale(language, getCountry()); // update locale
+        LanguageUtil.selectedLanguage = language; // selected language
     }
+
+    // get current locale
+    public static Locale getLocale() {
+        return locale;
+    }
+
+    //    // test main
+//    public static void main(String[] args) {
+//        setLanguage("fr");
+//        setCountry("FR");
+//        System.out.println(getString("wish"));
+//        System.out.println(getLanguage());
+//    }
 }

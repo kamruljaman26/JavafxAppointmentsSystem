@@ -28,7 +28,7 @@ public class HibernateUtil {
         getSessionFactory().close();
     }
 
-    public static void main(String[] args) {
-        System.out.println(getSessionFactory());
-    }
+//    public static void main(String[] args) {
+//        System.out.println(getSessionFactory());
+//    }
 }
