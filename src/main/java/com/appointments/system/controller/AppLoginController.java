@@ -1,5 +1,7 @@
 package com.appointments.system.controller;
 
+import com.appointments.system.model.Users;
+import com.appointments.system.repo.UsersDao;
 import com.appointments.system.utils.LanguageUtil;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -17,11 +19,32 @@ public class AppLoginController implements Initializable {
     public SplitMenuButton languageSplitMenuID;
     public Label locationLabelID;
     public ImageView logoImgViewID;
+    public Label messageLabelID;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupLanguageMenu();
         setUserLocationInLabel();
+
+        // login button
+        loginBtnID.setOnAction(event -> {
+            handleLogin();
+        });
+    }
+
+    // verify login and handle button action
+    private void handleLogin() {
+        messageLabelID.setText("");
+
+        String username = usernameTxtFldID.getText();
+        String password = passwordTxtFldID.getText();
+        if(username.isEmpty() || password.isEmpty()){
+            messageLabelID.setText(LanguageUtil.getString("empty.username.password"));
+        }else {
+            UsersDao dao = new UsersDao();
+//            Users users = dao.getUserByUsername(username);
+//            System.out.println(users);
+        }
     }
 
     // setup side menu

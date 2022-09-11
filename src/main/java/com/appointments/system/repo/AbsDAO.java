@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class AbsDAO<T extends Serializable> {
 
     private Class<T> clazz;
-    protected SessionFactory sessionFactory;
+    protected static SessionFactory sessionFactory;
 
     public void setClazz(final Class<T> clazzToSet) {
         clazz = Preconditions.checkNotNull(clazzToSet);
@@ -37,6 +37,7 @@ public abstract class AbsDAO<T extends Serializable> {
 
         CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(clazz);
+
         Root<T> root = cq.from(clazz);
         cq.select(root);
         Query query = getCurrentSession().createQuery(cq);

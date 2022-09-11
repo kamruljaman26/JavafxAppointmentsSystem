@@ -36,11 +36,12 @@
       </GridPane>
       <SplitMenuButton fx:id="languageSplitMenuID" layoutX="690.0" layoutY="26.0" mnemonicParsing="false" text="English">
       </SplitMenuButton>
-      <Label fx:id="locationLabelID" layoutX="338.0" layoutY="460.0" text="His is my location, reguin" textAlignment="CENTER" />
+      <Label fx:id="locationLabelID" layoutX="3.0" layoutY="460.0" prefHeight="17.0" prefWidth="794.0" style="-fx-alignment: center;" text="His is my location, reguin" textAlignment="CENTER" />
       <ImageView fx:id="logoImgViewID" fitHeight="84.0" fitWidth="330.0" layoutX="237.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../images/logo.jpeg" />
          </image>
       </ImageView>
+      <Label fx:id="messageLabelID" layoutX="8.0" layoutY="375.0" prefHeight="17.0" prefWidth="794.0" style="-fx-alignment: center;" textAlignment="CENTER" textFill="RED" />
    </children>
 </AnchorPane>
