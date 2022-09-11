@@ -14,6 +14,7 @@
         <property name="format_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
 
+
         <!--        For create db dynamically need disable this line-->
         <property name="hibernate.hbm2ddl.auto">validate</property>
         <property name="hibernate.current_session_context_class">thread</property>
@@ -23,13 +24,14 @@
         <property name="hibernate.hbm2ddl.jdbc_metadata_extraction_strategy">individually</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
 
-        <!-- JDBC connection pool (use the built-in) -->
-<!--        <property name="connection.pool_size">100</property>-->
-<!--        <property name="current_session_context_class">thread</property>-->
 
         <!-- Hibernate Entity Mapping Class -->
-        <mapping class="com.appointments.system.model.Customer"/>
-<!--        <mapping class="model.Category"/>-->
+        <mapping class="com.appointments.system.model.Customers"/>
+        <mapping class="com.appointments.system.model.FirstLevelDivisions"/>
+        <mapping class="com.appointments.system.model.Countries"/>
+        <mapping class="com.appointments.system.model.Appointments"/>
+        <mapping class="com.appointments.system.model.Contacts"/>
+        <mapping class="com.appointments.system.model.Users"/>
 
     </session-factory>
 </hibernate-configuration>
