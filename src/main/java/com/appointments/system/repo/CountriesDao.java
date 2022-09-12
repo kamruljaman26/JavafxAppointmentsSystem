@@ -10,7 +10,7 @@ import java.util.List;
 public class CountriesDao extends AbsDAO<Countries> {
 
     public CountriesDao() {
-        super.sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory = HibernateUtil.getSessionFactory();
         setClazz(Countries.class);
     }
 

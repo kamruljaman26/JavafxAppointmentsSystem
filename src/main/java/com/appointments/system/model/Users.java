@@ -1,5 +1,7 @@
 package com.appointments.system.model;
 
+import com.appointments.system.utils.PasswordManager;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -100,6 +102,12 @@ public class Users implements Serializable {
 
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
+    }
+
+    // verify password
+    public boolean verifyPassword(String password) {
+//        return PasswordManager.getInstance().matches(password, this.password);
+        return this.password.equals(password);
     }
 
     @Override

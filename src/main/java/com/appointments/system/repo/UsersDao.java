@@ -16,7 +16,7 @@ import java.util.List;
 public class UsersDao extends AbsDAO<Users> {
 
     public UsersDao() {
-        super.sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory = HibernateUtil.getSessionFactory();
         setClazz(Users.class);
     }
 
@@ -37,6 +37,10 @@ public class UsersDao extends AbsDAO<Users> {
         Root<Users> root = cq.from(Users.class);
         cq.select(root).where(cb.equal(root.get("userName"), username));
         Query query = getCurrentSession().createQuery(cq);
+
+        if(query.getResultList().isEmpty()){
+            return null;
+        }
 
         return (Users) query.getResultList().get(0);
     }

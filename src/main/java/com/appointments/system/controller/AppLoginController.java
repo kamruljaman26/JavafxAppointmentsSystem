@@ -2,14 +2,22 @@ package com.appointments.system.controller;
 
 import com.appointments.system.model.Users;
 import com.appointments.system.repo.UsersDao;
+import com.appointments.system.utils.DataTraveler;
+import com.appointments.system.utils.FXUtil;
 import com.appointments.system.utils.LanguageUtil;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AppLoginController implements Initializable {
+/**
+ * Admin Login controller for FXML to manage and verify login details also able to manage
+ */
+public class AppLoginController implements Initializable, DataTraveler {
 
     // fxml views init ids
     public Label userLoginLabelID;
@@ -21,29 +29,47 @@ public class AppLoginController implements Initializable {
     public ImageView logoImgViewID;
     public Label messageLabelID;
 
+    // properties
+    private Object[] data;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupLanguageMenu();
         setUserLocationInLabel();
 
         // login button
-        loginBtnID.setOnAction(event -> {
-            handleLogin();
-        });
+        loginBtnID.setOnAction(this::handleLogin);
     }
 
     // verify login and handle button action
-    private void handleLogin() {
+    private void handleLogin(ActionEvent event) {
         messageLabelID.setText("");
 
         String username = usernameTxtFldID.getText();
         String password = passwordTxtFldID.getText();
+
         if(username.isEmpty() || password.isEmpty()){
             messageLabelID.setText(LanguageUtil.getString("empty.username.password"));
         }else {
             UsersDao dao = new UsersDao();
-//            Users users = dao.getUserByUsername(username);
-//            System.out.println(users);
+            Users users = dao.getUserByUsername(username);
+
+            // after validation move/load admin dashboard
+            if(users != null && users.verifyPassword(password)){
+                // load new view
+                ((Node) event.getSource()).getScene().getWindow().hide();
+                FXUtil.loadView(
+                        getClass(),
+                        event,
+                        FXUtil.DASHBOARD,
+                        "Admin Dashboard",
+                        users
+                );
+            }
+            // show invalid message
+            else {
+                messageLabelID.setText(LanguageUtil.getString("invalid.username.password"));
+            }
         }
     }
 
@@ -77,5 +103,10 @@ public class AppLoginController implements Initializable {
     // show user location
     private void setUserLocationInLabel() {
         locationLabelID.setText(LanguageUtil.getLocale().getDisplayCountry());
+    }
+
+    @Override
+    public void data(Object... o) {
+        // todo
     }
 }

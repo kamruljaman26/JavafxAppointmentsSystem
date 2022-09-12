@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CustomerDao extends AbsDAO<Customers> {
     public CustomerDao() {
-        super.sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory = HibernateUtil.getSessionFactory();
         setClazz(Customers.class);
     }
 

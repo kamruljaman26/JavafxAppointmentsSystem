@@ -10,6 +10,7 @@ public class PasswordManager {
         return new PasswordManager();
     }
 
+    // password encoder
     public String encode(CharSequence charSequence) {
         // code copied from Savepoint
         /* MessageDigest instance for MD5. */
@@ -19,6 +20,7 @@ public class PasswordManager {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
         /* Add plain-text password bytes to digest using MD5 update() method. */
         m.update(charSequence.toString().getBytes());
         /* Convert the hash value into bytes */
@@ -30,9 +32,5 @@ public class PasswordManager {
         }
         /* Complete hashed password in hexadecimal format */
         return s.toString();
-    }
-
-    public boolean matches(CharSequence charSequence, String s) {
-        return encode(charSequence).equals(s);
     }
 }

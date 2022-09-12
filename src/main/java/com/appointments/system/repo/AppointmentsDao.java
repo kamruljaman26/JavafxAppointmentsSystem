@@ -9,7 +9,7 @@ import java.util.List;
 public class AppointmentsDao extends AbsDAO<Appointments> {
 
     public AppointmentsDao() {
-        super.sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory = HibernateUtil.getSessionFactory();
         setClazz(Appointments.class);
     }
 

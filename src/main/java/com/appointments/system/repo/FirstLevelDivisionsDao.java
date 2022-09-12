@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FirstLevelDivisionsDao extends AbsDAO<FirstLevelDivisions> {
     public FirstLevelDivisionsDao() {
-        super.sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory = HibernateUtil.getSessionFactory();
         setClazz(FirstLevelDivisions.class);
     }
 
