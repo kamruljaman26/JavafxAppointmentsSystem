@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *  Main Application
+ *  Main Application starter
  */
 public class AppLogin extends Application {
     

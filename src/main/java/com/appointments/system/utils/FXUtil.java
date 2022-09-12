@@ -7,15 +7,29 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class FXUtil {
 
-    // all fxml view file links/location
+    public static final String CUSTOMER_PANEL = "customers_panel.fxml";
+    public static final String APPOINTMENTS_PANEL = "appointments_panel.fxml";
     public static String LOGIN = "app_login.fxml";
     public static String DASHBOARD = "dashboard.fxml";
+
+    // load fxml view in the stage
+    public static void loadAnchorView(Class<?> aClass, String fxSource, AnchorPane rootPane) {
+        try {
+            // load view in anchor pane area and control separately
+            AnchorPane pane = FXMLLoader.load(aClass.getResource(fxSource));
+            rootPane.getChildren().setAll(pane);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     // load fxml view in the stage
     public static void loadView(Class<?> aClass, ActionEvent event, String fxSource, String title, Object... data) {
