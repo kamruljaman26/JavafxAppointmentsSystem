@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="anchorPaneID" prefHeight="504.0" prefWidth="855.0" style="-fx-background-color: #dfdfdf #dfdfdf;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointments.system.controller.CustomersViewController">
+   <children>
+      <Button layoutX="309.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="288.0" text="Customer View" />
+   </children>
+</AnchorPane>

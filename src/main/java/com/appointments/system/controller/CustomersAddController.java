@@ -1,15 +1,15 @@
 package com.appointments.system.controller;
 
 import com.appointments.system.utils.DataTraveler;
+import com.appointments.system.utils.FXUtil;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-public class CustomersController implements Initializable, DataTraveler {
-
-    // fxml ids
+public class CustomersAddController implements Initializable, DataTraveler {
 
     // properties
     Object[] data;

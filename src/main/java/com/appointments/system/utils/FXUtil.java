@@ -9,13 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.net.URL;
 
 public class FXUtil {
 
     public static final String CUSTOMER_PANEL = "customers_panel.fxml";
+    public static final String CUSTOMER_ADD = "customers_add.fxml";
+    public static final String CUSTOMER_VIEW = "customers_view.fxml";
     public static final String APPOINTMENTS_PANEL = "appointments_panel.fxml";
     public static String LOGIN = "app_login.fxml";
     public static String DASHBOARD = "dashboard.fxml";

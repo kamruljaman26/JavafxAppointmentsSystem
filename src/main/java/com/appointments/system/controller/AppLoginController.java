@@ -6,10 +6,10 @@ import com.appointments.system.utils.DataTraveler;
 import com.appointments.system.utils.FXUtil;
 import com.appointments.system.utils.LanguageUtil;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,6 +34,11 @@ public class AppLoginController implements Initializable, DataTraveler {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        // init logo img
+        Image image = new Image(String.valueOf(getClass().getResource("images/logo.png")));
+        logoImgViewID.setImage(image);
+
         setupLanguageMenu();
         setUserLocationInLabel();
 

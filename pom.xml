@@ -10,18 +10,21 @@
     <name>AppointmentSystem</name>
 
     <properties>
+        <main.class>com.appointments.system.controller.AppLogin</main.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.8.1</junit.version>
     </properties>
 
     <dependencies>
 
+        <!--        // unit test-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -61,13 +64,6 @@
             <version>2.0.1.Final</version>
         </dependency>
 
-        <!--   GEO Location from IP     -->
-        <dependency>
-            <groupId>com.maxmind.geoip2</groupId>
-            <artifactId>geoip2</artifactId>
-            <version>2.8.0</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -83,4 +79,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
