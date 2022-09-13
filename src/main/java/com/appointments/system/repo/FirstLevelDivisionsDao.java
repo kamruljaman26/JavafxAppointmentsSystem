@@ -12,12 +12,4 @@ public class FirstLevelDivisionsDao extends AbsDAO<FirstLevelDivisions> {
         sessionFactory = HibernateUtil.getSessionFactory();
         setClazz(FirstLevelDivisions.class);
     }
-
-    public static void main(String[] args) {
-        FirstLevelDivisionsDao dao = new FirstLevelDivisionsDao();
-        List<FirstLevelDivisions> all = dao.findAll();
-        for (FirstLevelDivisions c:all){
-            System.out.println(c);
-        }
-    }
 }

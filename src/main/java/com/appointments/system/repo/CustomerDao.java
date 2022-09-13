@@ -11,12 +11,4 @@ public class CustomerDao extends AbsDAO<Customers> {
         sessionFactory = HibernateUtil.getSessionFactory();
         setClazz(Customers.class);
     }
-
-    public static void main(String[] args) {
-        CustomerDao dao = new CustomerDao();
-        List<Customers> all = dao.findAll();
-        for (Customers c:all){
-            System.out.println(c);
-        }
-    }
 }

@@ -14,11 +14,4 @@ public class CountriesDao extends AbsDAO<Countries> {
         setClazz(Countries.class);
     }
 
-    public static void main(String[] args) {
-        CountriesDao dao = new CountriesDao();
-        List<Countries> all = dao.findAll();
-        for (Countries c:all){
-            System.out.println(c);
-        }
-    }
 }

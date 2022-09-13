@@ -10,15 +10,8 @@ import java.util.List;
 public class ContractsDao extends AbsDAO<Contacts> {
 
     public ContractsDao() {
-        super.sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory = HibernateUtil.getSessionFactory();
         setClazz(Contacts.class);
     }
 
-    public static void main(String[] args) {
-        ContractsDao dao = new ContractsDao();
-        List<Contacts> all = dao.findAll();
-        for (Contacts c:all){
-            System.out.println(c);
-        }
-    }
 }

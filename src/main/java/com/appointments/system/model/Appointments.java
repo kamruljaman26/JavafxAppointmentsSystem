@@ -59,7 +59,8 @@ public class Appointments implements Serializable {
     }
 
     public Appointments(int id, String title, String description, String location, String type, LocalDateTime start,
-                        LocalDateTime end, LocalDateTime createDate, String createdBy, LocalDateTime lastUpdate, String lastUpdatedBy, Customers customers, Users users, Contacts contacts) {
+                        LocalDateTime end, LocalDateTime createDate, String createdBy, LocalDateTime lastUpdate,
+                        String lastUpdatedBy, Customers customers, Users users, Contacts contacts) {
         this.id = id;
         this.title = title;
         this.description = description;

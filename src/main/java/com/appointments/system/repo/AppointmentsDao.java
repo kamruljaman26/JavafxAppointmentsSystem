@@ -13,11 +13,4 @@ public class AppointmentsDao extends AbsDAO<Appointments> {
         setClazz(Appointments.class);
     }
 
-    public static void main(String[] args) {
-        AppointmentsDao dao = new AppointmentsDao();
-        List<Appointments> all = dao.findAll();
-        for (Appointments c:all){
-            System.out.println(c);
-        }
-    }
 }

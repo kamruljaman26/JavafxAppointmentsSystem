@@ -20,11 +20,6 @@ public class UsersDao extends AbsDAO<Users> {
         setClazz(Users.class);
     }
 
-    public static void main(String[] args) {
-        UsersDao dao = new UsersDao();
-        System.out.println(dao.getUserByUsername("admin"));
-    }
-
     // find user by username
     public Users getUserByUsername(String username) {
         // if Transaction is not active
