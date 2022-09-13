@@ -20,7 +20,7 @@ public abstract class AbsDAO<T extends Serializable> {
         clazz = Preconditions.checkNotNull(clazzToSet);
     }
 
-    public T findOne(final long id) {
+    public T findOne(final int id) {
         // if Transaction is not active
         Transaction tx = getCurrentSession().getTransaction();
         if (!tx.isActive()) tx.begin();
@@ -90,7 +90,7 @@ public abstract class AbsDAO<T extends Serializable> {
         tx.commit();
     }
 
-    public void deleteById(final long entityId) {
+    public void deleteById(final int entityId) {
         // if Transaction is not active
         Transaction tx = getCurrentSession().getTransaction();
         if (!tx.isActive()) tx.begin();

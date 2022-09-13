@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="anchorPaneID" prefHeight="504.0" prefWidth="855.0" style="-fx-background-color: #dfdfdf #dfdfdf;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointments.system.controller.CustomersViewController">
    <children>
-      <Button layoutX="309.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="288.0" text="Customer View" />
+      <TableView fx:id="tableViewID" layoutX="8.0" layoutY="39.0" prefHeight="460.0" prefWidth="836.0">
+        <columns>
+        </columns>
+      </TableView>
+      <Label fx:id="titleLabelID" layoutX="10.0" layoutY="7.0" text="All Customers">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -1,5 +1,8 @@
 package com.appointments.system.model;
 
+import com.appointments.system.repo.CountriesDao;
+import com.appointments.system.repo.CustomerDao;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -103,14 +106,7 @@ public class FirstLevelDivisions implements Serializable {
 
     @Override
     public String toString() {
-        return "FirstLevelDivisions{" +
-                "id=" + id +
-                ", divisions='" + divisions + '\'' +
-                ", createdDate=" + createdDate +
-                ", createdBy='" + createdBy + '\'' +
-                ", lastUpdate=" + lastUpdate +
-                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-                ", countryID=" + countryID +
-                '}';
+        Countries countries = new CountriesDao().findOne(getCountryID());
+        return getDivisions()+", "+countries.getCountry();
     }
 }
