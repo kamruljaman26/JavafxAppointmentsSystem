@@ -51,7 +51,6 @@ public class CustomersAddController implements Initializable, DataTraveler {
 
     @Override
     public void data(Object... o) {
-
         users = (Users) o[0];
     }
 
@@ -70,6 +69,54 @@ public class CustomersAddController implements Initializable, DataTraveler {
         searchBtnID.setOnAction(this::findCustomerButtonAction);
         clearFldsBtnID.setOnAction(this::clearButtonAction);
         addBtnID.setOnAction(this::addCustomerButtonAction);
+        deleteBtnID.setOnAction(this::deleteCustomerBtnAction);
+        updateBtnID.setOnAction(this::updateCustomerButtonAction);
+    }
+
+    // update customer button action
+    private void updateCustomerButtonAction(ActionEvent event) {
+
+        String name = nameTxtFldID.getText(), phone = phoneTxtFldID.getText(),
+                address = addressTxtFldID.getText(), postcode = postcodeTxtFldID.getText();
+        FirstLevelDivisions divisions = divisionsDao.findAll().stream()
+                .filter(d -> d.getDivisions().equals(divisionComboBxID.getValue()))
+                .collect(Collectors.toList()).get(0);
+
+        if (currCustomer.getId() != Integer.parseInt(customerIDTxtFldID.getText())) {
+            messageLabelID.setText("Sorry you can't change customer id, try with original customer's id");
+        }
+        else if (name.isEmpty() || phone.isEmpty() || address.isEmpty() || postcode.isEmpty()) {
+            messageLabelID.setText("Please fill all information to update a customer.");
+        }else {
+            // create customer
+            Customers customers = customerDao.findOne(Integer.parseInt(customerIDTxtFldID.getText()));
+            customers.setName(name);
+            customers.setPhone(phone);
+            customers.setAddress(address);
+            customers.setPostalCode(postcode);
+            customers.setDivisionID(divisions);
+            customers.setLasUpdate(LocalDateTime.now());
+            customers.setLastUpdateBy(users.getUserName());
+
+            customers = customerDao.update(customers);
+            currCustomer = customers;
+            customerIDTxtFldID.setText(customers.getId() + "");
+
+            messageLabelID.setText("Customer updated successfully.");
+        }
+    }
+
+    // delete selected customer
+    private void deleteCustomerBtnAction(ActionEvent event) {
+        if (currCustomer == null) {
+            messageLabelID.setText("before trying to delete, please select valid customer by id");
+        } else {
+            String name = currCustomer.getName(), id = currCustomer.getId() + "";
+            customerDao.delete(currCustomer);
+            clearButtonAction(event);
+            messageLabelID.setText(name + " (" + id + ") deleted successfully.");
+            currCustomer = null;
+        }
     }
 
     // collect data from filed and create new customer
@@ -77,7 +124,8 @@ public class CustomersAddController implements Initializable, DataTraveler {
         try {
 
             if (!customerIDTxtFldID.getText().isEmpty()) {
-                messageLabelID.setText("Customer id filed should be empty, system will automatically create the id");
+                messageLabelID.setText("Customer id filed should be empty," +
+                        " system will automatically create the id");
             } else {
 
                 String name = nameTxtFldID.getText(), phone = phoneTxtFldID.getText(),
@@ -86,23 +134,27 @@ public class CustomersAddController implements Initializable, DataTraveler {
                         .filter(d -> d.getDivisions().equals(divisionComboBxID.getValue()))
                         .collect(Collectors.toList()).get(0);
 
-                // create customer
-                Customers customers = new Customers();
-                customers.setName(name);
-                customers.setPhone(phone);
-                customers.setAddress(address);
-                customers.setPostalCode(postcode);
-                customers.setDivisionID(divisions);
-                customers.setCreatedDate(LocalDateTime.now());
-                customers.setLasUpdate(LocalDateTime.now());
-                customers.setCreatedBy(users.getUserName());
-                customers.setLastUpdateBy(users.getUserName());
+                if (name.isEmpty() || phone.isEmpty() || address.isEmpty() || postcode.isEmpty()) {
+                    messageLabelID.setText("Please fill all information to create a customer!");
+                } else {
+                    // create customer
+                    Customers customers = new Customers();
+                    customers.setName(name);
+                    customers.setPhone(phone);
+                    customers.setAddress(address);
+                    customers.setPostalCode(postcode);
+                    customers.setDivisionID(divisions);
+                    customers.setCreatedDate(LocalDateTime.now());
+                    customers.setLasUpdate(LocalDateTime.now());
+                    customers.setCreatedBy(users.getUserName());
+                    customers.setLastUpdateBy(users.getUserName());
 
-                customers = customerDao.createOrUpdate(customers);
-                currCustomer = customers;
-                customerIDTxtFldID.setText(customers.getId()+"");
+                    customers = customerDao.createOrUpdate(customers);
+                    currCustomer = customers;
+                    customerIDTxtFldID.setText(customers.getId() + "");
 
-                messageLabelID.setText("customer created successfully.");
+                    messageLabelID.setText("customer created successfully.");
+                }
             }
         } catch (Exception e) {
             messageLabelID.setText("something error while creating a customer.");
@@ -119,6 +171,7 @@ public class CustomersAddController implements Initializable, DataTraveler {
         phoneTxtFldID.clear();
         addressTxtFldID.clear();
         postcodeTxtFldID.clear();
+        messageLabelID.setText("");
     }
 
     // handle find button action
@@ -141,6 +194,7 @@ public class CustomersAddController implements Initializable, DataTraveler {
                 );
                 divisionComboBxID.setValue(currCustomer.getDivisionID().getDivisions());
             } else {
+                clearButtonAction(event);
                 messageLabelID.setText("Customer not found, please try again with valid customer id.");
             }
 
