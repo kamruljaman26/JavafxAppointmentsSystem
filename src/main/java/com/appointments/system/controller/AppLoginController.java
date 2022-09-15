@@ -11,7 +11,12 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
@@ -48,33 +53,54 @@ public class AppLoginController implements Initializable, DataTraveler {
 
     // verify login and handle button action
     private void handleLogin(ActionEvent event) {
-        messageLabelID.setText("");
+        try {
+            // write login attempts in file
+            File file = new File("login_activity.txt");
+            if (!file.isFile()) file.createNewFile();
+            FileWriter writer = new FileWriter(file, true);
 
-        String username = usernameTxtFldID.getText();
-        String password = passwordTxtFldID.getText();
+            messageLabelID.setText("");
 
-        if(username.isEmpty() || password.isEmpty()){
-            messageLabelID.setText(LanguageUtil.getString("empty.username.password"));
-        }else {
-            UsersDao dao = new UsersDao();
-            Users users = dao.getUserByUsername(username);
+            String username = usernameTxtFldID.getText();
+            String password = passwordTxtFldID.getText();
+            boolean isLoginSuccess = false;
 
-            // after validation move/load admin dashboard
-            if(users != null && users.verifyPassword(password)){
-                // load new view
-                ((Node) event.getSource()).getScene().getWindow().hide();
-                FXUtil.loadView(
-                        getClass(),
-                        event,
-                        FXUtil.DASHBOARD,
-                        "Admin Dashboard",
-                        users
-                );
+            if (username.isEmpty() || password.isEmpty()) {
+                messageLabelID.setText(LanguageUtil.getString("empty.username.password"));
+            } else {
+                UsersDao dao = new UsersDao();
+                Users users = dao.getUserByUsername(username);
+
+                // after validation move/load admin dashboard
+                if (users != null && users.verifyPassword(password)) {
+                    // load new view
+                    ((Node) event.getSource()).getScene().getWindow().hide();
+                    FXUtil.loadView(
+                            getClass(),
+                            event,
+                            FXUtil.DASHBOARD,
+                            "Admin Dashboard",
+                            users
+                    );
+                    isLoginSuccess = true;
+                }
+                // show invalid message
+                else {
+                    messageLabelID.setText(LanguageUtil.getString("invalid.username.password"));
+                }
             }
-            // show invalid message
-            else {
-                messageLabelID.setText(LanguageUtil.getString("invalid.username.password"));
-            }
+
+            // write in file
+            if(isLoginSuccess)
+                writer.write("username="+usernameTxtFldID.getText()
+                        +", time="+ LocalDateTime.now().toString()+", status=success\n");
+            else
+                writer.write("username="+usernameTxtFldID.getText()+
+                        ", time="+ LocalDateTime.now().toString()+", status=fail\n");
+
+            writer.close();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

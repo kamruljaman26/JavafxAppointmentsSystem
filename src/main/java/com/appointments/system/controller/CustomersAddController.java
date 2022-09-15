@@ -1,9 +1,7 @@
 package com.appointments.system.controller;
 
-import com.appointments.system.model.Countries;
-import com.appointments.system.model.Customers;
-import com.appointments.system.model.FirstLevelDivisions;
-import com.appointments.system.model.Users;
+import com.appointments.system.model.*;
+import com.appointments.system.repo.AppointmentsDao;
 import com.appointments.system.repo.CountriesDao;
 import com.appointments.system.repo.CustomerDao;
 import com.appointments.system.repo.FirstLevelDivisionsDao;
@@ -18,6 +16,7 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
@@ -84,10 +83,9 @@ public class CustomersAddController implements Initializable, DataTraveler {
 
         if (currCustomer.getId() != Integer.parseInt(customerIDTxtFldID.getText())) {
             messageLabelID.setText("Sorry you can't change customer id, try with original customer's id");
-        }
-        else if (name.isEmpty() || phone.isEmpty() || address.isEmpty() || postcode.isEmpty()) {
+        } else if (name.isEmpty() || phone.isEmpty() || address.isEmpty() || postcode.isEmpty()) {
             messageLabelID.setText("Please fill all information to update a customer.");
-        }else {
+        } else {
             // create customer
             Customers customers = customerDao.findOne(Integer.parseInt(customerIDTxtFldID.getText()));
             customers.setName(name);
@@ -111,6 +109,15 @@ public class CustomersAddController implements Initializable, DataTraveler {
         if (currCustomer == null) {
             messageLabelID.setText("before trying to delete, please select valid customer by id");
         } else {
+            // delete all appointment records using a foreign key
+            AppointmentsDao appointmentsDao = new AppointmentsDao();
+            List<Appointments> appointments = appointmentsDao
+                    .findAll()
+                    .stream()
+                    .filter(a -> a.getCustomers().equals(currCustomer))
+                    .collect(Collectors.toList());
+            appointments.forEach(appointmentsDao::delete);
+
             String name = currCustomer.getName(), id = currCustomer.getId() + "";
             customerDao.delete(currCustomer);
             clearButtonAction(event);
