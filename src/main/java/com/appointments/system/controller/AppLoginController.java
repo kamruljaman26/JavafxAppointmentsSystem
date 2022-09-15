@@ -44,6 +44,13 @@ public class AppLoginController implements Initializable, DataTraveler {
         Image image = new Image(String.valueOf(getClass().getResource("images/logo.png")));
         logoImgViewID.setImage(image);
 
+        // change language based on computer language
+        if (LanguageUtil.getLocale().getLanguage().equals("fr")) {
+            LanguageUtil.setLanguage("fr");
+            updateLanguageForView();
+            languageSplitMenuID.setText("French");
+        }
+
         setupLanguageMenu();
         setUserLocationInLabel();
 
@@ -91,15 +98,15 @@ public class AppLoginController implements Initializable, DataTraveler {
             }
 
             // write in file
-            if(isLoginSuccess)
-                writer.write("username="+usernameTxtFldID.getText()
-                        +", time="+ LocalDateTime.now().toString()+", status=success\n");
+            if (isLoginSuccess)
+                writer.write("username=" + usernameTxtFldID.getText()
+                        + ", time=" + LocalDateTime.now().toString() + ", status=success\n");
             else
-                writer.write("username="+usernameTxtFldID.getText()+
-                        ", time="+ LocalDateTime.now().toString()+", status=fail\n");
+                writer.write("username=" + usernameTxtFldID.getText() +
+                        ", time=" + LocalDateTime.now().toString() + ", status=fail\n");
 
             writer.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -133,7 +140,7 @@ public class AppLoginController implements Initializable, DataTraveler {
 
     // show user location
     private void setUserLocationInLabel() {
-        locationLabelID.setText(LanguageUtil.getLocale().getDisplayCountry());
+        locationLabelID.setText(LanguageUtil.getString("location")+" : "+LanguageUtil.getLocale().getDisplayCountry());
     }
 
     @Override
