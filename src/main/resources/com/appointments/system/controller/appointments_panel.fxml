@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="anchorPaneID" prefHeight="560.0" prefWidth="855.0" style="-fx-background-color: #dfdfdf #dfdfdf;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointments.system.controller.AppointmentsController">
+<AnchorPane id="anchorPaneID" prefHeight="560.0" prefWidth="855.0" style="-fx-background-color: #dfdfdf #dfdfdf;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointments.system.controller.AppointmentsPanelController">
    <children>
       <ButtonBar layoutX="260.0" layoutY="506.0" prefHeight="40.0" prefWidth="325.0">
          <buttons>

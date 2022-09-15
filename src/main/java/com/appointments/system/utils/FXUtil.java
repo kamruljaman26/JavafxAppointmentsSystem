@@ -19,6 +19,9 @@ public class FXUtil {
     public static final String APPOINTMENTS_PANEL = "appointments_panel.fxml";
     public static String LOGIN = "app_login.fxml";
     public static String DASHBOARD = "dashboard.fxml";
+    public static String APPOINTMENTS_ADD = "appointments_add.fxml";
+    public static String APPOINTMENTS_HOME = "appointments_home.fxml";
+    public static String APPOINTMENTS_VIEW = "appointments_view.fxml";
 
     // load fxml view in the stage
     public static void loadAnchorView(Class<?> aClass, String fxSource, AnchorPane rootPane, Object... data) {
