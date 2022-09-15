@@ -33,6 +33,8 @@ public class DashboardController implements Initializable, DataTraveler {
     @Override
     public void data(Object... o) {
         this.data = o;
+        // initially load customer
+        FXUtil.loadAnchorView(getClass(),FXUtil.CUSTOMER_PANEL, mainAnchorPaneID, data[0]); // replace view
     }
 
     @Override
@@ -46,19 +48,16 @@ public class DashboardController implements Initializable, DataTraveler {
         customersMenuBtnID.setOnAction(this::customerMenuBtnAction);
         appointmentsMenuBtnID.setOnAction(this::appointmentsMenuBtnAction);
         logoutMenuBtnID.setOnAction(this::logoutBtnAction);
-
-        // initially load customer
-        FXUtil.loadAnchorView(getClass(),FXUtil.CUSTOMER_PANEL, mainAnchorPaneID); // replace view
     }
 
     // load customer panel
     private void customerMenuBtnAction(ActionEvent event){
-        FXUtil.loadAnchorView(getClass(),FXUtil.CUSTOMER_PANEL, mainAnchorPaneID); // replace view
+        FXUtil.loadAnchorView(getClass(),FXUtil.CUSTOMER_PANEL, mainAnchorPaneID, data[0]); // replace view
     }
 
     // load appointments panel
     private void appointmentsMenuBtnAction(ActionEvent event){
-        FXUtil.loadAnchorView(getClass(),FXUtil.APPOINTMENTS_PANEL, mainAnchorPaneID); // replace view
+        FXUtil.loadAnchorView(getClass(),FXUtil.APPOINTMENTS_PANEL, mainAnchorPaneID, data[0]); // replace view
     }
 
     // logout from dashboard

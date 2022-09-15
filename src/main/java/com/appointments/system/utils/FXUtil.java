@@ -21,10 +21,16 @@ public class FXUtil {
     public static String DASHBOARD = "dashboard.fxml";
 
     // load fxml view in the stage
-    public static void loadAnchorView(Class<?> aClass, String fxSource, AnchorPane rootPane) {
+    public static void loadAnchorView(Class<?> aClass, String fxSource, AnchorPane rootPane, Object... data) {
         try {
             // load view in anchor pane area and control separately
-            AnchorPane pane = FXMLLoader.load(aClass.getResource(fxSource));
+            FXMLLoader loader = new FXMLLoader(aClass.getResource(fxSource));
+            AnchorPane pane = loader.load();
+            // transfer data to the controller
+            if (data.length > 0) {
+                DataTraveler controller = loader.getController();
+                controller.data(data);
+            }
             rootPane.getChildren().setAll(pane);
         } catch (IOException ex) {
             ex.printStackTrace();

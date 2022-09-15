@@ -59,9 +59,6 @@ public class CustomersViewController implements Initializable, DataTraveler {
         TableColumn<Customers, String> column7 = new TableColumn<>("Created By");
         column7.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
 
-        TableColumn<Customers, String> column8 = new TableColumn<>("Created By");
-        column8.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
-
         TableColumn<Customers, String> column9 = new TableColumn<>("Las Update");
         column9.setCellValueFactory(new PropertyValueFactory<>("lasUpdate"));
 
@@ -79,7 +76,6 @@ public class CustomersViewController implements Initializable, DataTraveler {
         tableViewID.getColumns().add(column5);
         tableViewID.getColumns().add(column6);
         tableViewID.getColumns().add(column7);
-        tableViewID.getColumns().add(column8);
         tableViewID.getColumns().add(column9);
         tableViewID.getColumns().add(column10);
         tableViewID.getColumns().add(column11);

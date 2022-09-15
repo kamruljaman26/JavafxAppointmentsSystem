@@ -112,5 +112,6 @@ public class AppLoginController implements Initializable, DataTraveler {
 
     @Override
     public void data(Object... o) {
+
     }
 }

@@ -3,6 +3,7 @@ package com.appointments.system.controller;
 import com.appointments.system.model.Countries;
 import com.appointments.system.model.Customers;
 import com.appointments.system.model.FirstLevelDivisions;
+import com.appointments.system.model.Users;
 import com.appointments.system.repo.CountriesDao;
 import com.appointments.system.repo.CustomerDao;
 import com.appointments.system.repo.FirstLevelDivisionsDao;
@@ -14,7 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
@@ -39,21 +42,21 @@ public class CustomersAddController implements Initializable, DataTraveler {
     public Button clearFldsBtnID;
 
     // properties
-    private Object[] data;
     private CountriesDao countriesDao;
     private CustomerDao customerDao;
     private AtomicReference<Countries> currentCountry;
     private FirstLevelDivisionsDao divisionsDao;
     private Customers currCustomer;
+    private Users users;
 
     @Override
     public void data(Object... o) {
-        this.data = o;
+
+        users = (Users) o[0];
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         // init
         countriesDao = new CountriesDao();
         customerDao = new CustomerDao();
@@ -63,14 +66,55 @@ public class CustomersAddController implements Initializable, DataTraveler {
         updateCountryComboBox();
         updateDivisionComboBox();
 
-        // find button action
+        // button action
         searchBtnID.setOnAction(this::findCustomerButtonAction);
         clearFldsBtnID.setOnAction(this::clearButtonAction);
+        addBtnID.setOnAction(this::addCustomerButtonAction);
     }
 
+    // collect data from filed and create new customer
+    private void addCustomerButtonAction(ActionEvent event) {
+        try {
+
+            if (!customerIDTxtFldID.getText().isEmpty()) {
+                messageLabelID.setText("Customer id filed should be empty, system will automatically create the id");
+            } else {
+
+                String name = nameTxtFldID.getText(), phone = phoneTxtFldID.getText(),
+                        address = addressTxtFldID.getText(), postcode = postcodeTxtFldID.getText();
+                FirstLevelDivisions divisions = divisionsDao.findAll().stream()
+                        .filter(d -> d.getDivisions().equals(divisionComboBxID.getValue()))
+                        .collect(Collectors.toList()).get(0);
+
+                // create customer
+                Customers customers = new Customers();
+                customers.setName(name);
+                customers.setPhone(phone);
+                customers.setAddress(address);
+                customers.setPostalCode(postcode);
+                customers.setDivisionID(divisions);
+                customers.setCreatedDate(LocalDateTime.now());
+                customers.setLasUpdate(LocalDateTime.now());
+                customers.setCreatedBy(users.getUserName());
+                customers.setLastUpdateBy(users.getUserName());
+
+                customers = customerDao.createOrUpdate(customers);
+                currCustomer = customers;
+                customerIDTxtFldID.setText(customers.getId()+"");
+
+                messageLabelID.setText("customer created successfully.");
+            }
+        } catch (Exception e) {
+            messageLabelID.setText("something error while creating a customer.");
+            e.printStackTrace();
+        }
+    }
+
+
     // clear all fields and current customer
-    private void clearButtonAction(ActionEvent event){
+    private void clearButtonAction(ActionEvent event) {
         currCustomer = null;
+        customerIDTxtFldID.clear();
         nameTxtFldID.clear();
         phoneTxtFldID.clear();
         addressTxtFldID.clear();
@@ -78,13 +122,13 @@ public class CustomersAddController implements Initializable, DataTraveler {
     }
 
     // handle find button action
-    private void findCustomerButtonAction(ActionEvent event){
-        try{
+    private void findCustomerButtonAction(ActionEvent event) {
+        try {
             // get customer
             int customerID = Integer.parseInt(customerIDTxtFldID.getText());
             currCustomer = customerDao.findOne(customerID);
 
-            if(currCustomer != null){
+            if (currCustomer != null) {
                 // update data in fields
                 nameTxtFldID.setText(currCustomer.getName());
                 addressTxtFldID.setText(currCustomer.getAddress());
@@ -96,18 +140,17 @@ public class CustomersAddController implements Initializable, DataTraveler {
                         currCustomer.getDivisionID().getCountryID()).getCountry()
                 );
                 divisionComboBxID.setValue(currCustomer.getDivisionID().getDivisions());
-            }else {
+            } else {
                 messageLabelID.setText("Customer not found, please try again with valid customer id.");
             }
 
-        }catch (Exception e){
-//            e.printStackTrace();
+        } catch (Exception e) {
             messageLabelID.setText("Customer id should be a number!, please try again.");
         }
     }
 
     // Create a combo box - country box
-    private void updateCountryComboBox(){
+    private void updateCountryComboBox() {
         List<String> countries = countriesDao.findAll()
                 .stream()
                 .map(Countries::getCountry)
