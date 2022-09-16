@@ -1,11 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
 
 <AnchorPane id="anchorPaneID" prefHeight="504.0" prefWidth="855.0" style="-fx-background-color: #dfdfdf #dfdfdf;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointments.system.controller.AppointmentsAddController">
    <children>
-      <Label layoutX="398.0" layoutY="252.0" text="Add" />
+      <Button fx:id="searchBtnID" layoutX="290.0" layoutY="27.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="116.0" text="Search" />
+      <TextField fx:id="searchTxtFldID" layoutX="32.0" layoutY="29.0" prefHeight="30.0" prefWidth="247.0" promptText="Find by appointment id" />
+      <GridPane layoutX="31.0" layoutY="74.0" prefHeight="153.0" prefWidth="791.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="99.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="305.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="389.0" minWidth="10.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="102.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="382.0" minWidth="10.0" prefWidth="318.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </opaqueInsets>
+      </GridPane>
+      <GridPane layoutX="35.0" layoutY="106.0" prefHeight="237.0" prefWidth="791.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="10.0" prefWidth="80.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="294.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="4.0" prefWidth="20.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="88.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="308.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label prefWidth="85.0" text="Title:" />
+            <Label prefHeight="17.0" prefWidth="65.0" text="Location:" GridPane.rowIndex="1" />
+            <Label text="Type:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="typeTxtFldID" promptText="enter type" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Label text="Description:" GridPane.columnIndex="3" />
+            <TextField fx:id="locationTxtFldID" promptText="enter location" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="titleTxtFldID" prefHeight="26.0" prefWidth="376.0" promptText="enter  title" GridPane.columnIndex="1" />
+            <ComboBox fx:id="contactComboBxID" prefHeight="25.0" prefWidth="319.0" promptText="select city" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Contact:" GridPane.rowIndex="2" />
+            <Label text="Customer ID:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label text="Start Date:" GridPane.rowIndex="3" />
+            <Label text="End Date:" GridPane.rowIndex="4" />
+            <Label text="Start Time:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label text="End TIme:" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <DatePicker fx:id="startDatePickerID" prefHeight="25.0" prefWidth="315.0" promptText="select start date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="endDatepickerID" prefHeight="25.0" prefWidth="304.0" promptText="select end date" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="customerIDTxtFldID" promptText="enter customer id" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <TextField fx:id="startTimeTxtFldID" promptText="enter start time (24 hours time format))" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <TextField fx:id="endTimeTxtFldID" promptText="enter start time (24 hours time format)" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <TextArea fx:id="descriptionTxtFldID" prefHeight="200.0" prefWidth="200.0" promptText="enter description" GridPane.columnIndex="4" />
+         </children>
+      </GridPane>
+      <Line endX="691.0" layoutX="136.0" layoutY="91.0" opacity="0.4" startX="-100.0" strokeWidth="0.5" />
+      <ButtonBar layoutX="239.0" layoutY="431.0" prefHeight="40.0" prefWidth="334.0">
+         <buttons>
+            <Button fx:id="addBtnID" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" text="Add" />
+            <Button fx:id="updateBtnID" mnemonicParsing="false" text="Update" />
+            <Button fx:id="deleteBtnID" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="clearFldsBtnID" mnemonicParsing="false" text="Clear" />
+         </buttons>
+      </ButtonBar>
+      <Label fx:id="messageLabelID" layoutX="35.0" layoutY="362.0" prefHeight="48.0" prefWidth="791.0" style="-fx-alignment: center;" textFill="RED" />
+      <Line endX="691.0" layoutX="136.0" layoutY="491.0" opacity="0.4" startX="-100.0" strokeWidth="0.5" />
    </children>
 </AnchorPane>

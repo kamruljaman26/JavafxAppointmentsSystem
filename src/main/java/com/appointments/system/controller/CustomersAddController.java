@@ -200,6 +200,7 @@ public class CustomersAddController implements Initializable, DataTraveler {
                         currCustomer.getDivisionID().getCountryID()).getCountry()
                 );
                 divisionComboBxID.setValue(currCustomer.getDivisionID().getDivisions());
+                messageLabelID.setText("");
             } else {
                 clearButtonAction(event);
                 messageLabelID.setText("Customer not found, please try again with valid customer id.");
