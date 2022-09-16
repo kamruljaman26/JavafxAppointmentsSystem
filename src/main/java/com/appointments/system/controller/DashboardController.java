@@ -1,5 +1,6 @@
 package com.appointments.system.controller;
 
+import com.appointments.system.model.Users;
 import com.appointments.system.utils.DataTraveler;
 import com.appointments.system.utils.FXUtil;
 import javafx.event.ActionEvent;
@@ -28,13 +29,13 @@ public class DashboardController implements Initializable, DataTraveler {
     public ImageView logoImgViewID;
 
     // properties
-    Object[] data;
+    private Users users;
 
     @Override
     public void data(Object... o) {
-        this.data = o;
+        users = (Users) o[0];
         // initially load customer
-        FXUtil.loadAnchorView(getClass(),FXUtil.CUSTOMER_PANEL, mainAnchorPaneID, data[0]); // replace view
+        FXUtil.loadAnchorView(getClass(), FXUtil.CUSTOMER_PANEL, mainAnchorPaneID, users); // replace view
     }
 
     @Override
@@ -51,17 +52,17 @@ public class DashboardController implements Initializable, DataTraveler {
     }
 
     // load customer panel
-    private void customerMenuBtnAction(ActionEvent event){
-        FXUtil.loadAnchorView(getClass(),FXUtil.CUSTOMER_PANEL, mainAnchorPaneID, data[0]); // replace view
+    private void customerMenuBtnAction(ActionEvent event) {
+        FXUtil.loadAnchorView(getClass(), FXUtil.CUSTOMER_PANEL, mainAnchorPaneID, users); // replace view
     }
 
     // load appointments panel
-    private void appointmentsMenuBtnAction(ActionEvent event){
-        FXUtil.loadAnchorView(getClass(),FXUtil.APPOINTMENTS_PANEL, mainAnchorPaneID, data[0]); // replace view
+    private void appointmentsMenuBtnAction(ActionEvent event) {
+        FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_PANEL, mainAnchorPaneID, users); // replace view
     }
 
     // logout from dashboard
-    private void logoutBtnAction(ActionEvent event){
+    private void logoutBtnAction(ActionEvent event) {
         // load new view
         ((Node) event.getSource()).getScene().getWindow().hide(); // hide view
         FXUtil.loadView(getClass(), event, FXUtil.LOGIN, "User Login");

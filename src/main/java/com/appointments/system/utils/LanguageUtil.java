@@ -1,13 +1,42 @@
 package com.appointments.system.utils;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class LanguageUtil {
 
     private static Locale locale = Locale.getDefault();
     private static String selectedLanguage = locale.getLanguage();
     private static String selectedCountry = locale.getCountry();
+
+    /**
+     *
+     * @return system time zone
+     */
+    public static String getTimeZone(){
+        return TimeZone.getDefault().getID();
+    }
+
+    public static boolean isOverlapping(Date start1, Date end1, Date start2, Date end2) {
+        return start1.before(end2) && start2.before(end1);
+    }
+
+    /**
+     * Convert from UTC to local system time zone
+     */
+    public static LocalDateTime changeDateTime(String dt) throws ParseException {
+        if(dt.contains("T")) dt = dt.replace("T", " ");
+        SimpleDateFormat sdfOriginal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdfOriginal.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date1 = sdfOriginal.parse(dt);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date1);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone(getTimeZone()));
+        return LocalDateTime.parse(sdf.format(calendar.getTime()).replace(" ", "T"));
+    }
 
     /**
      * Get string from resource bundle

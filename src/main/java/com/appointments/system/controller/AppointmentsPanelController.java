@@ -1,5 +1,6 @@
 package com.appointments.system.controller;
 
+import com.appointments.system.model.Users;
 import com.appointments.system.utils.DataTraveler;
 import com.appointments.system.utils.FXUtil;
 import javafx.fxml.Initializable;
@@ -19,31 +20,30 @@ public class AppointmentsPanelController implements Initializable, DataTraveler 
     public Button homeBtnID;
 
     // properties
-    Object[] data;
+    private Users users;
 
     @Override
     public void data(Object... o) {
-        this.data = o;
+        this.users = (Users) o[0];
+        // initially load view customer
+        FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_HOME, mainAnchorPaneID, users); // replace view
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // initially load view customer
-        FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_HOME, mainAnchorPaneID); // replace view
-
         // view button
         viewBtnID.setOnAction(event -> {
-            FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_VIEW, mainAnchorPaneID); // replace view
+            FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_VIEW, mainAnchorPaneID, users); // replace view
         });
 
         // add button
         addBtnID.setOnAction(event -> {
-            FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_ADD, mainAnchorPaneID); // replace view
+            FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_ADD, mainAnchorPaneID, users); // replace view
         });
 
         // home button
         homeBtnID.setOnAction(event -> {
-            FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_HOME, mainAnchorPaneID); // replace view
+            FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_HOME, mainAnchorPaneID, users); // replace view
         });
     }
 }

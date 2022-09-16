@@ -63,11 +63,9 @@
             <Label text="Contact:" GridPane.rowIndex="2" />
             <Label text="Customer ID:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Label text="Start Date:" GridPane.rowIndex="3" />
-            <Label text="End Date:" GridPane.rowIndex="4" />
             <Label text="Start Time:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Label text="End TIme:" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <DatePicker fx:id="startDatePickerID" prefHeight="25.0" prefWidth="315.0" promptText="select start date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <DatePicker fx:id="endDatepickerID" prefHeight="25.0" prefWidth="304.0" promptText="select end date" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <DatePicker fx:id="startDatePickerID" prefHeight="25.0" prefWidth="315.0" promptText="select date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="customerIDTxtFldID" promptText="enter customer id" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <TextField fx:id="startTimeTxtFldID" promptText="enter start time (24 hours time format))" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <TextField fx:id="endTimeTxtFldID" promptText="enter start time (24 hours time format)" GridPane.columnIndex="4" GridPane.rowIndex="4" />
