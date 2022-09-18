@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-
 
 <AnchorPane id="anchorPaneID" prefHeight="504.0" prefWidth="855.0" style="-fx-background-color: #dfdfdf #dfdfdf;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointments.system.controller.AppointmentsViewController">
    <children>
-      <Label layoutX="300.0" layoutY="223.0" text="View" />
+      <Label layoutX="15.0" layoutY="13.0" text="Filtered appointments by" />
+      <RadioButton fx:id="weekRadioBtnID" layoutX="161.0" layoutY="13.0" mnemonicParsing="false" text="Week" />
+      <RadioButton fx:id="monthRadioBtnID" layoutX="226.0" layoutY="13.0" mnemonicParsing="false" text="Month" />
+      <TableView fx:id="tableViewID" layoutX="14.0" layoutY="42.0" prefHeight="449.0" prefWidth="826.0" />
    </children>
 </AnchorPane>

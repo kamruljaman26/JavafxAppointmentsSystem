@@ -1,7 +1,10 @@
 package com.appointments.system.model;
 
+import com.appointments.system.utils.LanguageUtil;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 
 @Entity
@@ -207,5 +210,21 @@ public class Appointments implements Serializable {
                 ", users=" + users +
                 ", contacts=" + contacts +
                 '}';
+    }
+
+    public LocalDateTime getLocalStart(){
+        try {
+            return LanguageUtil.changeDateTime(getStart().toString());
+        } catch (ParseException e) {
+            return getStart();
+        }
+    }
+
+    public LocalDateTime getLocalEnd(){
+        try {
+            return LanguageUtil.changeDateTime(getEnd().toString());
+        } catch (ParseException e) {
+            return getEnd();
+        }
     }
 }

@@ -13,10 +13,9 @@ public class LanguageUtil {
     private static String selectedCountry = locale.getCountry();
 
     /**
-     *
      * @return system time zone
      */
-    public static String getTimeZone(){
+    public static String getTimeZone() {
         return TimeZone.getDefault().getID();
     }
 
@@ -28,7 +27,10 @@ public class LanguageUtil {
      * Convert from UTC to local system time zone
      */
     public static LocalDateTime changeDateTime(String dt) throws ParseException {
-        if(dt.contains("T")) dt = dt.replace("T", " ");
+//        System.out.println(dt);
+        if (dt.length() == 16) dt = dt + ":00";
+        if (dt.contains("T")) dt = dt.replace("T", " ");
+
         SimpleDateFormat sdfOriginal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sdfOriginal.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date1 = sdfOriginal.parse(dt);
@@ -61,6 +63,7 @@ public class LanguageUtil {
 
     /**
      * Set/change interface country
+     *
      * @param country os
      */
     public static void setCountry(String country) {
@@ -70,6 +73,7 @@ public class LanguageUtil {
 
     /**
      * Set/change interface language
+     *
      * @param language os
      */
     public static void setLanguage(String language) {

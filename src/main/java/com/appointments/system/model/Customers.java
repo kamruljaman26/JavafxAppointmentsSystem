@@ -1,5 +1,7 @@
 package com.appointments.system.model;
 
+import com.appointments.system.utils.LanguageUtil;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -37,7 +39,7 @@ public class Customers implements Serializable {
     @Column(name = "Last_Updated_By")
     private String lastUpdateBy;
 
-    @OneToOne(targetEntity=FirstLevelDivisions.class)
+    @OneToOne(targetEntity = FirstLevelDivisions.class)
     @JoinColumn(name = "Division_ID")
     private FirstLevelDivisions divisionID;
 
@@ -140,17 +142,6 @@ public class Customers implements Serializable {
 
     @Override
     public String toString() {
-        return "Customers{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", phone='" + phone + '\'' +
-                ", createdDate=" + createdDate +
-                ", createdBy='" + createdBy + '\'' +
-                ", lasUpdate=" + lasUpdate +
-                ", lastUpdateBy='" + lastUpdateBy + '\'' +
-                ", divisionID=" + divisionID +
-                '}';
+        return id + "";
     }
 }

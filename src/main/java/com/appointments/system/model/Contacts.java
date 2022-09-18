@@ -53,10 +53,6 @@ public class Contacts implements Serializable {
 
     @Override
     public String toString() {
-        return "Contacts{" +
-                "id=" + id +
-                ", contactName='" + contactName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return contactName;
     }
 }
