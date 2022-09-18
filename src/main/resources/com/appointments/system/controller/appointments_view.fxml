@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="anchorPaneID" prefHeight="504.0" prefWidth="855.0" style="-fx-background-color: #dfdfdf #dfdfdf;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointments.system.controller.AppointmentsViewController">
    <children>
-      <Label layoutX="15.0" layoutY="13.0" text="Filtered appointments by" />
-      <RadioButton fx:id="weekRadioBtnID" layoutX="161.0" layoutY="13.0" mnemonicParsing="false" text="Week" />
-      <RadioButton fx:id="monthRadioBtnID" layoutX="226.0" layoutY="13.0" mnemonicParsing="false" text="Month" />
-      <TableView fx:id="tableViewID" layoutX="14.0" layoutY="42.0" prefHeight="449.0" prefWidth="826.0" />
+      <TabPane layoutX="7.0" layoutY="6.0" prefHeight="497.0" prefWidth="843.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Week">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="weekTableViewID" layoutY="1.0" prefHeight="457.0" prefWidth="843.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Month">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="monthTableViewID" layoutY="1.0" prefHeight="456.0" prefWidth="843.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>
