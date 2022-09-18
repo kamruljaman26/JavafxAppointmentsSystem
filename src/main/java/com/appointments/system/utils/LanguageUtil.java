@@ -3,6 +3,7 @@ package com.appointments.system.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 public class LanguageUtil {
@@ -19,8 +20,8 @@ public class LanguageUtil {
         return TimeZone.getDefault().getID();
     }
 
-    public static boolean isOverlapping(Date start1, Date end1, Date start2, Date end2) {
-        return start1.before(end2) && start2.before(end1);
+    public static boolean isOverlapping(LocalTime start1, LocalTime end1, LocalTime start2, LocalTime end2) {
+        return start1.isBefore(end2) && start2.isBefore(end1);
     }
 
     /**

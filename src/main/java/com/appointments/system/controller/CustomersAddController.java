@@ -159,7 +159,7 @@ public class CustomersAddController implements Initializable, DataTraveler {
                     customers = customerDao.createOrUpdate(customers);
                     currCustomer = customers;
                     customerIDTxtFldID.setText(customers.getId() + "");
-
+                    customerIDTxtFldID.setDisable(true);
                     messageLabelID.setText("customer created successfully.");
                 }
             }
@@ -179,6 +179,7 @@ public class CustomersAddController implements Initializable, DataTraveler {
         addressTxtFldID.clear();
         postcodeTxtFldID.clear();
         messageLabelID.setText("");
+        customerIDTxtFldID.setDisable(false);
     }
 
     // handle find button action
@@ -201,6 +202,7 @@ public class CustomersAddController implements Initializable, DataTraveler {
                 );
                 divisionComboBxID.setValue(currCustomer.getDivisionID().getDivisions());
                 messageLabelID.setText("");
+                customerIDTxtFldID.setDisable(true);
             } else {
                 clearButtonAction(event);
                 messageLabelID.setText("Customer not found, please try again with valid customer id.");
