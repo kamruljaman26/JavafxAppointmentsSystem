@@ -35,7 +35,7 @@ public class DashboardController implements Initializable, DataTraveler {
     public void data(Object... o) {
         users = (Users) o[0];
         // initially load customer
-        FXUtil.loadAnchorView(getClass(), FXUtil.CUSTOMER_PANEL, mainAnchorPaneID, users); // replace view
+        FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_PANEL, mainAnchorPaneID, users); // replace view
     }
 
     @Override

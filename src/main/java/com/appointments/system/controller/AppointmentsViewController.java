@@ -3,6 +3,7 @@ package com.appointments.system.controller;
 import com.appointments.system.model.Appointments;
 import com.appointments.system.repo.AppointmentsDao;
 import com.appointments.system.utils.DataTraveler;
+import com.appointments.system.utils.DataUtil;
 import com.appointments.system.utils.LanguageUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +40,7 @@ public class AppointmentsViewController implements Initializable, DataTraveler {
     }
 
     // load month based appointments
-    private static synchronized void loadTableView(TableView<Appointments> tableView, int days) {
+    public static synchronized void loadTableView(TableView<Appointments> tableView, int days) {
         // create table columns
         TableColumn<Appointments, String> column1 = new TableColumn<>("ID");
         column1.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -83,46 +84,7 @@ public class AppointmentsViewController implements Initializable, DataTraveler {
         tableView.getColumns().add(column9);
         tableView.getColumns().add(column10);
 
-        AppointmentsDao dao = new AppointmentsDao();
-        ObservableList<Appointments> appointments = FXCollections.observableArrayList();
-        Calendar calendar = Calendar.getInstance();
-
-        for (int i = 0; i < days; i++) {
-            Date time = calendar.getTime();
-
-            // search all appointment to find out with date date range
-            List<Appointments> all = dao.findAll();
-            List<Appointments> allList = all.stream().collect(Collectors.toList());
-//            Collections.copy(allList, all);
-
-            for (Appointments a : allList) {
-                int year1 = a.getLocalStart().getYear();
-                int year2 = time.getYear() + 1900;
-
-                int month1 = a.getLocalStart().toLocalDate().getMonthValue();
-                int month2 = time.getMonth() + 1;
-
-                int day1 = a.getLocalStart().toLocalDate().getDayOfMonth();
-                int day2 = time.getDate();
-
-                // if before current time
-                if (year1 == year2 && month1 == month2 && day1 == day2) {
-
-                    // filter today and already added appointments
-                    boolean before = LocalTime.now().isAfter(a.getLocalStart().toLocalTime());
-                    if (!appointments.contains(a) && !(i == 0 && before)) {
-//                        a.setStart(a.getLocalStart());
-//                        a.setEnd(a.getLocalEnd());
-                        appointments.add(a);
-                    }
-                }
-            }
-
-            // increase by 1 day
-            calendar.add(Calendar.DATE, 1);
-        }
-
-        tableView.setItems(appointments);
+        tableView.setItems(DataUtil.getAppointmentsByDays(days));
         tableView.refresh();
     }
 

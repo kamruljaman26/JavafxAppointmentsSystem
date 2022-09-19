@@ -2,13 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<?import javafx.scene.image.Image?>
 <AnchorPane id="anchorPaneID" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointments.system.controller.DashboardController">
    <children>
       <GridPane layoutX="23.0" layoutY="31.0" prefHeight="63.0" prefWidth="855.0" style="-fx-background-color: #dfdfdf; -fx-padding: 10;">
@@ -27,8 +27,8 @@
                     <Image url="@images/logo.jpeg" />
                 </image>
             </ImageView>
-            <Button fx:id="customersMenuBtnID" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" text="Customers" GridPane.columnIndex="1" />
-            <Button fx:id="appointmentsMenuBtnID" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Appointments" GridPane.columnIndex="2" />
+            <Button fx:id="customersMenuBtnID" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" text="Customers" GridPane.columnIndex="2" />
+            <Button fx:id="appointmentsMenuBtnID" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Appointments" GridPane.columnIndex="1" />
             <Button fx:id="logoutMenuBtnID" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="142.0" text="Sign-Out" GridPane.columnIndex="3" />
          </children>
       </GridPane>

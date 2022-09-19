@@ -9,8 +9,8 @@
       <ButtonBar layoutX="260.0" layoutY="506.0" prefHeight="40.0" prefWidth="325.0">
          <buttons>
             <Button fx:id="homeBtnID" mnemonicParsing="false" prefHeight="31.0" prefWidth="148.0" text="Home" />
-            <Button fx:id="addBtnID" mnemonicParsing="false" prefHeight="30.0" prefWidth="148.0" text="Add" />
             <Button fx:id="viewBtnID" mnemonicParsing="false" prefHeight="31.0" prefWidth="148.0" text="View" />
+            <Button fx:id="addBtnID" mnemonicParsing="false" prefHeight="30.0" prefWidth="148.0" text="Add" />
          </buttons>
       </ButtonBar>
       <AnchorPane fx:id="mainAnchorPaneID" layoutY="-1.0" prefHeight="504.0" prefWidth="855.0" />

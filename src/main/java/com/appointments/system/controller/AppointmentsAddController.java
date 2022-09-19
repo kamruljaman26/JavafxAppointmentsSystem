@@ -266,14 +266,14 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
                     messageLabelID.setText("end time can be same or smaller from start time.");
                 }
 
-                // should  between business hours ( 8:00 a.m. to 10:00 p.m)
-                else if (startDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
-                        startDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0 ||
-                        endDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
-                        endDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0
-                ) {
-                    messageLabelID.setText("appointment should  between business hours ( 8:00 a.m. to 10:00 p.m)");
-                }
+//                // should  between business hours ( 8:00 a.m. to 10:00 p.m)
+//                else if (startDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
+//                        startDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0 ||
+//                        endDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
+//                        endDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0
+//                ) {
+//                    messageLabelID.setText("appointment should  between business hours ( 8:00 a.m. to 10:00 p.m)");
+//                }
 
                 // invalid customer
                 else if (customers == null) {

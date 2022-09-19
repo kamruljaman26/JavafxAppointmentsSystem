@@ -26,6 +26,5 @@ public class Main {
             System.out.println("" + calendar.getTime());
             calendar.add(Calendar.DATE, 1);
         }
-
     }
 }

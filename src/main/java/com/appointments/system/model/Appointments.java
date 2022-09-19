@@ -64,27 +64,6 @@ public class Appointments implements Serializable {
     @Transient
     private LocalDateTime endLocal;
 
-    public LocalDateTime getStartLocal() {
-        if(endLocal == null) {
-            try {
-                return LanguageUtil.changeDateTime(start.toString());
-            } catch (ParseException e) {
-                return endLocal;
-            }
-        }
-        return endLocal;
-    }
-
-    public LocalDateTime getEndLocal(LocalDateTime endLocal) {
-        if(endLocal == null) {
-            try {
-                return LanguageUtil.changeDateTime(end.toString());
-            } catch (ParseException e) {
-                return endLocal;
-            }
-        }
-        return endLocal;
-    }
 
     public Appointments() {
     }
@@ -106,6 +85,32 @@ public class Appointments implements Serializable {
         this.customers = customers;
         this.users = users;
         this.contacts = contacts;
+    }
+
+    // provide local time and date
+    public LocalDateTime getStartLocal() {
+        if(startLocal == null) {
+            try {
+                startLocal = LanguageUtil.changeDateTime(start.toString());
+                return startLocal;
+            } catch (ParseException e) {
+                return startLocal;
+            }
+        }
+        return startLocal;
+    }
+
+    // provide local time and date
+    public LocalDateTime getEndLocal() {
+        if(endLocal == null) {
+            try {
+                endLocal = LanguageUtil.changeDateTime(end.toString());
+                return endLocal;
+            } catch (ParseException e) {
+                return endLocal;
+            }
+        }
+        return endLocal;
     }
 
     public int getId() {
@@ -255,16 +260,22 @@ public class Appointments implements Serializable {
 
     public LocalDateTime getLocalStart(){
         try {
+            LocalDateTime dateTime = LanguageUtil.changeDateTime(getStart().toString());
+            System.out.println(dateTime);
             return LanguageUtil.changeDateTime(getStart().toString());
         } catch (ParseException e) {
+            e.printStackTrace();
             return getStart();
         }
     }
 
     public LocalDateTime getLocalEnd(){
         try {
+            LocalDateTime dateTime = LanguageUtil.changeDateTime(getEnd().toString());
+            System.out.println(dateTime);
             return LanguageUtil.changeDateTime(getEnd().toString());
         } catch (ParseException e) {
+            e.printStackTrace();
             return getEnd();
         }
     }
