@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "appointments")
@@ -210,6 +211,19 @@ public class Appointments implements Serializable {
                 ", users=" + users +
                 ", contacts=" + contacts +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Appointments that = (Appointments) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public LocalDateTime getLocalStart(){
