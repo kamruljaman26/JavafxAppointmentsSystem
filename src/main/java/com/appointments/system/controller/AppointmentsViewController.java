@@ -60,10 +60,10 @@ public class AppointmentsViewController implements Initializable, DataTraveler {
         column6.setCellValueFactory(new PropertyValueFactory<>("type"));
 
         TableColumn<Appointments, String> column7 = new TableColumn<>("Start");
-        column7.setCellValueFactory(new PropertyValueFactory<>("start"));
+        column7.setCellValueFactory(new PropertyValueFactory<>("startLocal"));
 
         TableColumn<Appointments, String> column8 = new TableColumn<>("End");
-        column8.setCellValueFactory(new PropertyValueFactory<>("end"));
+        column8.setCellValueFactory(new PropertyValueFactory<>("endLocal"));
 
         TableColumn<Appointments, String> column9 = new TableColumn<>("Customer");
         column9.setCellValueFactory(new PropertyValueFactory<>("customers"));
@@ -91,7 +91,11 @@ public class AppointmentsViewController implements Initializable, DataTraveler {
             Date time = calendar.getTime();
 
             // search all appointment to find out with date date range
-            for (Appointments a : dao.findAll()) {
+            List<Appointments> all = dao.findAll();
+            List<Appointments> allList = all.stream().collect(Collectors.toList());
+//            Collections.copy(allList, all);
+
+            for (Appointments a : allList) {
                 int year1 = a.getLocalStart().getYear();
                 int year2 = time.getYear() + 1900;
 
@@ -106,9 +110,9 @@ public class AppointmentsViewController implements Initializable, DataTraveler {
 
                     // filter today and already added appointments
                     boolean before = LocalTime.now().isAfter(a.getLocalStart().toLocalTime());
-                    if (!appointments.contains(a) && !(i==0 && before)) {
-                        a.setStart(a.getLocalStart());
-                        a.setEnd(a.getLocalEnd());
+                    if (!appointments.contains(a) && !(i == 0 && before)) {
+//                        a.setStart(a.getLocalStart());
+//                        a.setEnd(a.getLocalEnd());
                         appointments.add(a);
                     }
                 }

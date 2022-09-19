@@ -59,6 +59,33 @@ public class Appointments implements Serializable {
     @JoinColumn(name = "Contact_ID")
     private Contacts contacts;
 
+    @Transient
+    private LocalDateTime startLocal;
+    @Transient
+    private LocalDateTime endLocal;
+
+    public LocalDateTime getStartLocal() {
+        if(endLocal == null) {
+            try {
+                return LanguageUtil.changeDateTime(start.toString());
+            } catch (ParseException e) {
+                return endLocal;
+            }
+        }
+        return endLocal;
+    }
+
+    public LocalDateTime getEndLocal(LocalDateTime endLocal) {
+        if(endLocal == null) {
+            try {
+                return LanguageUtil.changeDateTime(end.toString());
+            } catch (ParseException e) {
+                return endLocal;
+            }
+        }
+        return endLocal;
+    }
+
     public Appointments() {
     }
 
