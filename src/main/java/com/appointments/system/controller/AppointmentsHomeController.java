@@ -28,6 +28,8 @@ public class AppointmentsHomeController implements Initializable, DataTraveler {
     @FXML
     public Label appIn15MinTxtLblID;
     @FXML
+    public Button customerReportBtnID;
+    @FXML
     private Label weekLblID;
     @FXML
     private Label monthLblID;
@@ -81,11 +83,17 @@ public class AppointmentsHomeController implements Initializable, DataTraveler {
 
         // contact
         contactReportBtnID.setOnAction(this::contactReportButtonAction);
+        customerReportBtnID.setOnAction(this::customerReportButtonAction);
     }
 
     // contact report button action
     private void contactReportButtonAction(ActionEvent event) {
         FXUtil.loadAnchorView(getClass(), FXUtil.CONTACT_REPORT, anchorPane); // replace view
+    }
+
+    // contact report button action
+    private void customerReportButtonAction(ActionEvent event) {
+        FXUtil.loadAnchorView(getClass(), FXUtil.CUSTOMER_REPORT, anchorPane); // replace view
     }
 
     /**

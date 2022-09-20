@@ -15,6 +15,7 @@ import java.text.ParseException;
 public class FXUtil {
 
     public static final String CONTACT_REPORT = "appointments_contact_schedule.fxml";
+    public static final String CUSTOMER_REPORT = "appointments_customer_schedule.fxml";
     public static final String CUSTOMER_PANEL = "customers_panel.fxml";
     public static final String CUSTOMER_ADD = "customers_add.fxml";
     public static final String CUSTOMER_VIEW = "customers_view.fxml";

@@ -10,13 +10,13 @@
 
 <AnchorPane id="anchorPaneID" prefHeight="504.0" prefWidth="855.0" style="-fx-background-color: #dfdfdf #dfdfdf;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.appointments.system.controller.AppointmentsHomeController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Appointments in 15 minute">
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="272.0" text="Appointments in 15 minute">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       <TableView fx:id="in15minTableViewID" layoutX="14.0" layoutY="52.0" prefHeight="200.0" prefWidth="826.0" />
-      <Label fx:id="appIn15MinTxtLblID" layoutX="14.0" layoutY="263.0" prefHeight="17.0" prefWidth="826.0" style="-fx-alignment: center;" text="app not found message" />
+      <Label fx:id="appIn15MinTxtLblID" layoutX="14.0" layoutY="259.0" prefHeight="23.0" prefWidth="826.0" style="-fx-alignment: center;" text="app not found message" />
       <Line endX="723.0" layoutX="115.0" layoutY="292.0" opacity="0.3" startX="-100.0" />
       <Pane layoutX="15.0" layoutY="305.0" prefHeight="188.0" prefWidth="194.0" style="-fx-background-color: ffffff;">
          <children>
@@ -52,5 +52,6 @@
          </font>
       </Label>
       <Button fx:id="contactReportBtnID" layoutX="428.0" layoutY="348.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="224.0" text="Contact Report" />
+      <Button fx:id="customerReportBtnID" layoutX="428.0" layoutY="388.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="224.0" text="Customer Report" />
    </children>
 </AnchorPane>
