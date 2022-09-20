@@ -69,11 +69,9 @@ public class AppLoginController implements Initializable, DataTraveler {
 
             messageLabelID.setText("");
 
-//            String username = usernameTxtFldID.getText();
-//            String password = passwordTxtFldID.getText();
+            String username = usernameTxtFldID.getText();
+            String password = passwordTxtFldID.getText();
 
-            String username = "test";
-            String password = "test";
             boolean isLoginSuccess = false;
 
             if (username.isEmpty() || password.isEmpty()) {

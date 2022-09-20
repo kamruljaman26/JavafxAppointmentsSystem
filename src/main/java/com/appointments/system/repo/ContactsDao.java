@@ -7,9 +7,9 @@ import com.appointments.system.utils.HibernateUtil;
 
 import java.util.List;
 
-public class ContractsDao extends AbsDAO<Contacts> {
+public class ContactsDao extends AbsDAO<Contacts> {
 
-    public ContractsDao() {
+    public ContactsDao() {
         sessionFactory = HibernateUtil.getSessionFactory();
         setClazz(Contacts.class);
     }

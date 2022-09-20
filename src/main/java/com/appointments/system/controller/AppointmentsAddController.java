@@ -55,7 +55,7 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
 
     private AppointmentsDao appointmentsDao;
     private CustomerDao customerDao;
-    private ContractsDao contactsDao;
+    private ContactsDao contactsDao;
 
     private AtomicReference<Contacts> curContact;
     private Appointments curAppointment;
@@ -72,7 +72,7 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
         // init variables
         appointmentsDao = new AppointmentsDao();
         customerDao = new CustomerDao();
-        contactsDao = new ContractsDao();
+        contactsDao = new ContactsDao();
         curContact = new AtomicReference<>();
         startDatePickerID.setValue(LocalDate.now());
 
@@ -266,14 +266,15 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
                     messageLabelID.setText("end time can be same or smaller from start time.");
                 }
 
-//                // should  between business hours ( 8:00 a.m. to 10:00 p.m)
-//                else if (startDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
-//                        startDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0 ||
-//                        endDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
-//                        endDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0
-//                ) {
-//                    messageLabelID.setText("appointment should  between business hours ( 8:00 a.m. to 10:00 p.m)");
-//                }
+                // todo: enable
+/*                // should  between business hours ( 8:00 a.m. to 10:00 p.m)
+                else if (startDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
+                        startDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0 ||
+                        endDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
+                        endDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0
+                ) {
+                    messageLabelID.setText("appointment should  between business hours ( 8:00 a.m. to 10:00 p.m)");
+                }*/
 
                 // invalid customer
                 else if (customers == null) {

@@ -5,8 +5,10 @@ import com.appointments.system.model.Customers;
 import com.appointments.system.repo.CustomerDao;
 import com.appointments.system.utils.DataTraveler;
 import com.appointments.system.utils.DataUtil;
+import com.appointments.system.utils.FXUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.time.LocalTime;
@@ -34,10 +37,12 @@ public class AppointmentsHomeController implements Initializable, DataTraveler {
     private TableView<Appointments> in15minTableViewID;
 
     Object[] data;
+    private AnchorPane anchorPane;
 
     @Override
     public void data(Object... o) {
         this.data = o;
+        anchorPane = (AnchorPane) o[1];
     }
 
     @Override
@@ -48,8 +53,8 @@ public class AppointmentsHomeController implements Initializable, DataTraveler {
         ObservableList<Appointments> appointmentsBy30Days = DataUtil.getAppointmentsByDays(30);
 
         // total week
-        weekLblID.setText(appointmentsBy7Days.size()+"");
-        monthLblID.setText(appointmentsBy30Days.size()+"");
+        weekLblID.setText(appointmentsBy7Days.size() + "");
+        monthLblID.setText(appointmentsBy30Days.size() + "");
 
         // show appoints in 15 min
         ObservableList<Appointments> appointmentsBy15Min = FXCollections.observableArrayList();
@@ -61,22 +66,31 @@ public class AppointmentsHomeController implements Initializable, DataTraveler {
 
             LocalTime aTime = a.getLocalStart().toLocalTime();
 
-            if(aTime.compareTo(localTime) >= 0 && aTime.compareTo(localTime15) <= 0){
+            if (aTime.compareTo(localTime) >= 0 && aTime.compareTo(localTime15) <= 0) {
                 System.out.println(a);
                 appointmentsBy15Min.add(a);
             }
         });
 
-        if(appointmentsBy15Min.isEmpty()){
+        if (appointmentsBy15Min.isEmpty()) {
             appIn15MinTxtLblID.setText("no appointments found in next 15 min");
-        }else {
-            appIn15MinTxtLblID.setText(appointmentsBy15Min.size()+" appointments found in next 15 min");
+        } else {
+            appIn15MinTxtLblID.setText(appointmentsBy15Min.size() + " appointments found in next 15 min");
             init15MinTableView(appointmentsBy15Min);
         }
+
+        // contact
+        contactReportBtnID.setOnAction(this::contactReportButtonAction);
+    }
+
+    // contact report button action
+    private void contactReportButtonAction(ActionEvent event) {
+        FXUtil.loadAnchorView(getClass(), FXUtil.CONTACT_REPORT, anchorPane); // replace view
     }
 
     /**
      * Init table view
+     *
      * @param appointmentsBy15Min
      */
     private void init15MinTableView(ObservableList<Appointments> appointmentsBy15Min) {

@@ -26,7 +26,7 @@ public class AppointmentsPanelController implements Initializable, DataTraveler 
     public void data(Object... o) {
         this.users = (Users) o[0];
         // initially load view customer
-        FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_HOME, mainAnchorPaneID, users); // replace view
+        FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_HOME, mainAnchorPaneID, users, mainAnchorPaneID); // replace view
     }
 
     @Override
@@ -43,7 +43,7 @@ public class AppointmentsPanelController implements Initializable, DataTraveler 
 
         // home button
         homeBtnID.setOnAction(event -> {
-            FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_HOME, mainAnchorPaneID, users); // replace view
+            FXUtil.loadAnchorView(getClass(), FXUtil.APPOINTMENTS_HOME, mainAnchorPaneID, users, mainAnchorPaneID); // replace view
         });
     }
 }

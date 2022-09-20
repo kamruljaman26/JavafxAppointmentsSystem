@@ -31,7 +31,6 @@ public class DataUtil {
             List<Appointments> allList = all.stream().collect(Collectors.toList());
 
             for (Appointments a : allList) {
-//                System.out.println(a);
                 LocalDateTime localStart = a.getLocalStart();
                 int year1 = localStart.getYear();
                 int year2 = time.getYear() + 1900;
@@ -41,9 +40,6 @@ public class DataUtil {
 
                 int day1 = localStart.toLocalDate().getDayOfMonth();
                 int day2 = time.getDate();
-
-                // if before current time
-//                System.out.println(day1 + "::" + day2);
 
                 if (year1 == year2 && month1 == month2 && day1 == day2) {
                     // filter today and already added appointments
@@ -57,9 +53,6 @@ public class DataUtil {
             // increase by 1 day
             calendar.add(Calendar.DATE, 1);
         }
-
-        System.out.println();
-        System.out.println();
 
         return appointments;
     }
