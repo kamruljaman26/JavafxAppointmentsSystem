@@ -49,6 +49,7 @@ public class DashboardController implements Initializable, DataTraveler {
         customersMenuBtnID.setOnAction(this::customerMenuBtnAction);
         appointmentsMenuBtnID.setOnAction(this::appointmentsMenuBtnAction);
         logoutMenuBtnID.setOnAction(this::logoutBtnAction);
+//        appointmentsMenuBtnID.setDefaultButton(true);
     }
 
     // load customer panel
