@@ -304,7 +304,7 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
 
                     searchTxtFldID.setText(appointments.getId() + "");
                     searchTxtFldID.setDisable(true);
-                    messageLabelID.setText("customer created successfully.");
+                    messageLabelID.setText("Appointment created successfully.");
                 }
             }
         } catch (DateTimeParseException e) {

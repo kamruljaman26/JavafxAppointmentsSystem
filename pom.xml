@@ -46,7 +46,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.27</version>
+            <version>8.0.28</version>
         </dependency>
 
         <dependency>
@@ -72,7 +72,6 @@
                 <version>3.8.1</version>
                 <configuration>
                     <release>11</release>
-                    <mainClass>com.appointments.system.controller.AppLogin</mainClass>
                 </configuration>
             </plugin>
 
