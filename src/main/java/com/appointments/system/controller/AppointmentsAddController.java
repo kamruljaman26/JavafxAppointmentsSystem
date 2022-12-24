@@ -7,6 +7,7 @@ import com.appointments.system.utils.DateTimeUtil;
 import com.appointments.system.utils.LanguageUtil;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
@@ -83,120 +84,22 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
         // init button
         searchBtnID.setOnAction(this::findAppointmentsButtonAction);
         clearFldsBtnID.setOnAction(this::clearButtonAction);
-        addBtnID.setOnAction(this::addAppointmentsButtonAction);
         deleteBtnID.setOnAction(this::deleteAppointmentsButtonAction);
-//        updateBtnID.setOnAction(this::updateAppointmentsButtonAction);
-    }
 
-    // update button actions
-//    private void updateAppointmentsButtonAction(ActionEvent event) {
-//
-//        try {
-//            String title = titleTxtFldID.getText(), description = descriptionTxtFldID.getText(),
-//                    location = locationTxtFldID.getText(), type = typeTxtFldID.getText(),
-//                    customerId = customerIDTxtFldID.getText();
-//
-//            if (curAppointment == null) {
-//                messageLabelID.setText("please select appointment before trying to update");
-//            }
-//
-//            // if any fields are empty
-//            else if (title.isEmpty() ||
-//                    description.isEmpty() ||
-//                    location.isEmpty() ||
-//                    customerId.isEmpty() ||
-//                    type.isEmpty() ||
-//                    startTimeTxtFldID.getText().isEmpty() ||
-//                    endTimeTxtFldID.getText().isEmpty()
-//            ) {
-//                messageLabelID.setText("Please fill all information to update the appointments.");
-//            } else {
-//
-//                Customers customers = customerDao.findOne(Integer.parseInt(customerId));
-//
-//                // convert selected time to UTC time
-///*                LocalDateTime startDateTime = LocalDateTime.of(startDatePickerID.getValue(),
-//                        LocalTime.parse(startTimeTxtFldID.getText()));
-//                LocalDateTime endDateTime = LocalDateTime.of(startDatePickerID.getValue(),
-//                        LocalTime.parse(endTimeTxtFldID.getText()));
-//                startDateTime.atZone(ZoneOffset.UTC);
-//                endDateTime.atZone(ZoneOffset.UTC);*/
-//
-//                // convert selected time to UTC time
-//                ZonedDateTime systemZoneDateTime = DateTimeUtil.SYSTEM_ZONE_DATE_TIME;
-//                ZonedDateTime utcZoneDateTime = DateTimeUtil.UTC_ZONE_DATE_TIME;
-//                ZonedDateTime estZoneDateTime = DateTimeUtil.EST_ZONE_DATE_TIME;
-//
-//
-//                // check time overlapping
-//                Appointments overlappedApp = null;
-//                List<Appointments> allApp = appointmentsDao.findAll();
-//                for (Appointments appointments : allApp) {
-//                    if (startDateTime.toLocalDate().equals(appointments.getStart().toLocalDate()) &&
-//                            LanguageUtil.isOverlapping(startDateTime.toLocalTime(), endDateTime.toLocalTime(),
-//                                    appointments.getStart().toLocalTime(), appointments.getEnd().toLocalTime()) &&
-//                            appointments.getContacts().getId() == curContact.get().getId() &&
-//                            appointments.getId() != curAppointment.getId()
-//                    ) {
-//                        overlappedApp = appointments;
-//                    }
-//                }
-//
-//                if (overlappedApp != null) {
-//                    messageLabelID.setText(curContact.get().getContactName() + " have another appointment with "
-//                            + overlappedApp.getCustomers().getName() + " (" + overlappedApp.getStart().toLocalTime() +
-//                            "-" + overlappedApp.getEnd().toLocalTime() + ")");
-//                }
-//
-//                // meeting end before it start
-//                else if (startDateTime.toLocalTime().compareTo(endDateTime.toLocalTime()) >= 0) {
-//                    messageLabelID.setText("end time can't be same or smaller from start time.");
-//                }
-//
-//                // should  between business hours ( 8:00 a.m. to 10:00 p.m)
-//                else if (startDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
-//                        startDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0 ||
-//                        endDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
-//                        endDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0
-//                ) {
-//                    messageLabelID.setText("appointment should  between business hours ( 8:00 a.m. to 10:00 p.m)");
-//                }
-//
-//                // invalid customer
-//                else if (customers == null) {
-//                    messageLabelID.setText("Customer not found, invalid customer id to create an appointments.");
-//                }
-//
-//                // create customer
-//                else {
-//                    Appointments appointments = curAppointment;
-//                    appointments.setTitle(title);
-//                    appointments.setDescription(description);
-//                    appointments.setLocation(location);
-//                    appointments.setType(type);
-//                    appointments.setContacts(curContact.get());
-//                    appointments.setCustomers(customers);
-//
-//                    appointments.setUsers(users);
-//                    appointments.setLastUpdate(LocalDateTime.now());
-//                    appointments.setLastUpdatedBy(users.getUserName());
-//
-//                    appointments.setStart(utcZoneDateTime);
-//                    appointments.setEnd(endDateTime);
-//
-//                    curAppointment = appointmentsDao.update(appointments);
-//
-//                    searchTxtFldID.setText(appointments.getId() + "");
-//                    searchTxtFldID.setDisable(true);
-//                    messageLabelID.setText("appointment updated successfully.");
-//                }
-//            }
-//        } catch (DateTimeParseException e) {
-//            messageLabelID.setText("start and end time should be in a formatted way, format (HH:MM or HH:MM:ss)");
-//        } catch (NumberFormatException e) {
-//            messageLabelID.setText("Customer Id should be a number");
-//        }
-//    }
+        // add button
+        addBtnID.setOnAction(event -> {
+            // if search is not empty
+            if (!searchTxtFldID.getText().isEmpty()) {
+                messageLabelID.setText("Appointments id filed should be empty," +
+                        " system will automatically create the id");
+            }else {
+                addOrUpdateAppointmentsButtonAction(event);
+            }
+        });
+
+        // update button
+        updateBtnID.setOnAction(this::addOrUpdateAppointmentsButtonAction);
+    }
 
     // delete button action
     public void deleteAppointmentsButtonAction(ActionEvent event) {
@@ -217,20 +120,14 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
     }
 
     // handle update button action
-    private void addAppointmentsButtonAction(ActionEvent event) {
+    private void addOrUpdateAppointmentsButtonAction(ActionEvent event) {
         try {
             String title = titleTxtFldID.getText(), description = descriptionTxtFldID.getText(),
                     location = locationTxtFldID.getText(), type = typeTxtFldID.getText(),
                     customerId = customerIDTxtFldID.getText();
 
-            // if search is not empty
-            if (!searchTxtFldID.getText().isEmpty()) {
-                messageLabelID.setText("Appointments id filed should be empty," +
-                        " system will automatically create the id");
-            }
-
             // if any fields are empty
-            else if (title.isEmpty() ||
+            if (title.isEmpty() ||
                     description.isEmpty() ||
                     location.isEmpty() ||
                     customerId.isEmpty() ||
@@ -241,17 +138,16 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
                 messageLabelID.setText("Please fill all information to create a appointments.");
             } else {
 
-                // todo: renew add functionality
                 Customers customers = customerDao.findOne(Integer.parseInt(customerId));
 
                 // local time, and UTC time
                 ZonedDateTime localStartTime = ZonedDateTime.of(startDatePickerID.getValue(),
-                        LocalTime.parse(startTimeTxtFldID.getText()),DateTimeUtil.SYSTEM_ZONE_ID);
+                        LocalTime.parse(startTimeTxtFldID.getText()), DateTimeUtil.SYSTEM_ZONE_ID);
                 ZonedDateTime estStartTime = localStartTime.withZoneSameInstant(DateTimeUtil.EST_ZONE_ID);
                 ZonedDateTime utcStartTime = localStartTime.withZoneSameInstant(DateTimeUtil.UTC_ZONE_ID);
 
                 ZonedDateTime localEndTime = ZonedDateTime.of(startDatePickerID.getValue(),
-                        LocalTime.parse(endTimeTxtFldID.getText()),DateTimeUtil.SYSTEM_ZONE_ID);
+                        LocalTime.parse(endTimeTxtFldID.getText()), DateTimeUtil.SYSTEM_ZONE_ID);
                 ZonedDateTime estEndTime = localEndTime.withZoneSameInstant(DateTimeUtil.EST_ZONE_ID);
                 ZonedDateTime utcEndTime = localEndTime.withZoneSameInstant(DateTimeUtil.UTC_ZONE_ID);
 
@@ -270,25 +166,26 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
 
                 // check overlap
                 if (overlappedApp != null) {
-                    messageLabelID.setText(curContact.get().getContactName() + " have another appointment with "
+                    messageLabelID.setText("Appointment overlapped!, "+curContact.get().getContactName() + " have another appointment with "
                             + overlappedApp.getCustomers().getName() + " (" + overlappedApp.getStartSystem().toLocalTime() +
                             "-" + overlappedApp.getEndSystem().toLocalTime() + ")");
                 }
 
                 // meeting end before it start
                 else if (utcStartTime.toLocalTime().compareTo(utcEndTime.toLocalTime()) >= 0) {
-                    messageLabelID.setText("appointment end time can be same or smaller from start time.");
+                    messageLabelID.setText("Appointment end time can be same or smaller from start time.");
                 }
 
-                // todo: enable
-/*                // should  between business hours ( 8:00 a.m. to 10:00 p.m)
-                else if (startDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
-                        startDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0 ||
-                        endDateTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
-                        endDateTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0
-                ) {
-                    messageLabelID.setText("appointment should  between business hours ( 8:00 a.m. to 10:00 p.m)");
-                }*/
+                // todo: enable before delivery
+                // should  between business hours ( 8:00 a.m. to 10:00 p.m)
+//                else if (estStartTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
+//                        estStartTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0 ||
+//                        estEndTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
+//                        estEndTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0
+//                ) {
+//                    messageLabelID.setText("Appointment should between business hours (EST-8:00 a.m. to 22:00 p.m, " +
+//                            "based on your selected time the appointment started at "+estStartTime.toLocalTime()+")");
+//                }
 
                 // invalid customer
                 else if (customers == null) {
@@ -297,32 +194,55 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
 
                 // create customer
                 else {
-                    Appointments appointments = new Appointments();
-                    appointments.setTitle(title);
-                    appointments.setDescription(description);
-                    appointments.setLocation(location);
-                    appointments.setType(type);
-                    appointments.setContacts(curContact.get());
-                    appointments.setCustomers(customers);
+                    if (curAppointment != null) {
+                        Appointments appointments = curAppointment;
+                        appointments.setTitle(title);
+                        appointments.setDescription(description);
+                        appointments.setLocation(location);
+                        appointments.setType(type);
+                        appointments.setContacts(curContact.get());
+                        appointments.setCustomers(customers);
 
-                    appointments.setUsers(users);
-                    appointments.setCreateDate(LocalDateTime.now());
-                    appointments.setCreatedBy(users.getUserName());
-                    appointments.setLastUpdate(LocalDateTime.now());
-                    appointments.setLastUpdatedBy(users.getUserName());
+                        appointments.setUsers(users);
+                        appointments.setLastUpdate(LocalDateTime.now());
+                        appointments.setLastUpdatedBy(users.getUserName());
 
-                    appointments.setStart(utcStartTime);
-                    appointments.setEnd(utcEndTime);
+                        appointments.setStart(utcStartTime);
+                        appointments.setEnd(utcEndTime);
 
-                    curAppointment = appointmentsDao.createOrUpdate(appointments);
+                        curAppointment = appointmentsDao.update(appointments);
 
-                    searchTxtFldID.setText(appointments.getId() + "");
-                    searchTxtFldID.setDisable(true);
-                    messageLabelID.setText("Appointment created successfully.");
+                        searchTxtFldID.setText(appointments.getId() + "");
+                        searchTxtFldID.setDisable(true);
+                        messageLabelID.setText("Appointment updated successfully.");
+                    } else {
+                        Appointments appointments = new Appointments();
+                        appointments.setTitle(title);
+                        appointments.setDescription(description);
+                        appointments.setLocation(location);
+                        appointments.setType(type);
+                        appointments.setContacts(curContact.get());
+                        appointments.setCustomers(customers);
+
+                        appointments.setUsers(users);
+                        appointments.setCreateDate(LocalDateTime.now());
+                        appointments.setCreatedBy(users.getUserName());
+                        appointments.setLastUpdate(LocalDateTime.now());
+                        appointments.setLastUpdatedBy(users.getUserName());
+
+                        appointments.setStart(utcStartTime);
+                        appointments.setEnd(utcEndTime);
+
+                        curAppointment = appointmentsDao.createOrUpdate(appointments);
+
+                        searchTxtFldID.setText(appointments.getId() + "");
+                        searchTxtFldID.setDisable(true);
+                        messageLabelID.setText("Appointment created successfully.");
+                    }
                 }
             }
         } catch (DateTimeParseException e) {
-            messageLabelID.setText("start and end time should be in a formatted way, format (HH:MM or HH:MM:ss)");
+            messageLabelID.setText("Start and end time should be in a formatted way, format (HH:MM or HH:MM:ss)");
         } catch (NumberFormatException e) {
             messageLabelID.setText("Customer Id should be a number");
         }

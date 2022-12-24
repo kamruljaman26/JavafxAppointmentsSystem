@@ -48,7 +48,7 @@ public class DataUtil {
 
                 if (year1 == year2 && month1 == month2 && day1 == day2) {
                     // filter today and already added appointments
-                    boolean before = LocalTime.now().isAfter(localEnd.toLocalTime());
+                    boolean before = LocalTime.now().isAfter(localStart.toLocalTime());
                     if (!appointments.contains(a) && !(i == 0 && before)) {
                         appointments.add(a);
                     }
