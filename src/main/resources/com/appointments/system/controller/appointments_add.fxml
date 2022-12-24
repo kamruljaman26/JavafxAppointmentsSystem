@@ -68,7 +68,7 @@
             <DatePicker fx:id="startDatePickerID" prefHeight="25.0" prefWidth="315.0" promptText="select date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="customerIDTxtFldID" promptText="enter customer id" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <TextField fx:id="startTimeTxtFldID" promptText="enter start time (24 hours time format))" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <TextField fx:id="endTimeTxtFldID" promptText="enter start time (24 hours time format)" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <TextField fx:id="endTimeTxtFldID" promptText="enter end time (24 hours time format)" GridPane.columnIndex="4" GridPane.rowIndex="4" />
             <TextArea fx:id="descriptionTxtFldID" prefHeight="200.0" prefWidth="200.0" promptText="enter description" GridPane.columnIndex="4" />
          </children>
       </GridPane>

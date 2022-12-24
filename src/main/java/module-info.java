@@ -1,12 +1,13 @@
 module JavaFXAppointmentsSystem {
 
-//    javafx
+//    javafx & core
     requires javafx.controls;
     requires javafx.fxml;
     requires java.base;
 
 //    mysql and database
     requires mysql.connector.java;
+    requires java.sql;
     requires com.google.common;
     requires java.persistence;
     requires java.naming;
@@ -21,6 +22,7 @@ module JavaFXAppointmentsSystem {
     opens com.appointments.system.repo;
     opens com.appointments.system.model;
     opens com.appointments.system.utils;
+    opens com.appointments.system.aExample;
 
     exports com.appointments.system.controller;
 }

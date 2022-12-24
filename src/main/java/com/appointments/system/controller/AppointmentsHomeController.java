@@ -1,8 +1,6 @@
 package com.appointments.system.controller;
 
 import com.appointments.system.model.Appointments;
-import com.appointments.system.model.Customers;
-import com.appointments.system.repo.CustomerDao;
 import com.appointments.system.utils.DataTraveler;
 import com.appointments.system.utils.DataUtil;
 import com.appointments.system.utils.FXUtil;
@@ -23,7 +21,6 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class AppointmentsHomeController implements Initializable, DataTraveler {
-
 
     @FXML
     public Label appIn15MinTxtLblID;
@@ -61,12 +58,13 @@ public class AppointmentsHomeController implements Initializable, DataTraveler {
         // show appoints in 15 min
         ObservableList<Appointments> appointmentsBy15Min = FXCollections.observableArrayList();
 
-        // find if any appointments available in 15 min
+        // todo: verify and fixed the issue
+        // algorithm:: find if any appointments available in 15 min
         appointmentsBy1Day.forEach(a -> {
             LocalTime localTime = LocalTime.now();
             LocalTime localTime15 = localTime.plusMinutes(15);
 
-            LocalTime aTime = a.getLocalStart().toLocalTime();
+            LocalTime aTime = a.getStartSystem().toLocalTime();
 
             if (aTime.compareTo(localTime) >= 0 && aTime.compareTo(localTime15) <= 0) {
                 System.out.println(a);
@@ -102,6 +100,7 @@ public class AppointmentsHomeController implements Initializable, DataTraveler {
      * @param appointmentsBy15Min
      */
     private void init15MinTableView(ObservableList<Appointments> appointmentsBy15Min) {
+
         TableColumn<Appointments, String> column1 = new TableColumn<>("ID");
         column1.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -146,5 +145,6 @@ public class AppointmentsHomeController implements Initializable, DataTraveler {
 
         in15minTableViewID.setItems(appointmentsBy15Min);
         in15minTableViewID.refresh();
+
     }
 }

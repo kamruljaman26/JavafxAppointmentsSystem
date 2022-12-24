@@ -5,8 +5,8 @@ import com.appointments.system.repo.AppointmentsDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,18 +20,23 @@ public class DataUtil {
      * @return
      */
     public static synchronized ObservableList<Appointments> getAppointmentsByDays(int days) {
+
+        // todo: update the algorithm using java.time classes
+
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
         Calendar calendar = Calendar.getInstance();
 
-        // search all appointment to find out with date date range
+        // search all appointment to find out with date range
         for (int i = 0; i < days; i++) {
             Date time = calendar.getTime();
 
-            List<Appointments> all = new AppointmentsDao().findAll();
-            List<Appointments> allList = all.stream().collect(Collectors.toList());
+//            List<Appointments> all = ;
+            List<Appointments> allList = new ArrayList<>(new AppointmentsDao().findAll());
 
             for (Appointments a : allList) {
-                LocalDateTime localStart = a.getLocalStart();
+                ZonedDateTime localStart = a.getStartSystem();
+                ZonedDateTime localEnd = a.getEndSystem();
+
                 int year1 = localStart.getYear();
                 int year2 = time.getYear() + 1900;
 
@@ -43,7 +48,7 @@ public class DataUtil {
 
                 if (year1 == year2 && month1 == month2 && day1 == day2) {
                     // filter today and already added appointments
-                    boolean before = LocalTime.now().isAfter(a.getLocalStart().toLocalTime());
+                    boolean before = LocalTime.now().isAfter(localEnd.toLocalTime());
                     if (!appointments.contains(a) && !(i == 0 && before)) {
                         appointments.add(a);
                     }
