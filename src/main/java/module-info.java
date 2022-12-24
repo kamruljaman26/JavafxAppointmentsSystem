@@ -22,7 +22,6 @@ module JavaFXAppointmentsSystem {
     opens com.appointments.system.repo;
     opens com.appointments.system.model;
     opens com.appointments.system.utils;
-    opens com.appointments.system.aExample;
 
     exports com.appointments.system.controller;
 }
