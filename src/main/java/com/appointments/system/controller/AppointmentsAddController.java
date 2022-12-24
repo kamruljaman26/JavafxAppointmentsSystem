@@ -92,7 +92,7 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
             if (!searchTxtFldID.getText().isEmpty()) {
                 messageLabelID.setText("Appointments id filed should be empty," +
                         " system will automatically create the id");
-            }else {
+            } else {
                 addOrUpdateAppointmentsButtonAction(event);
             }
         });
@@ -140,7 +140,7 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
 
                 Customers customers = customerDao.findOne(Integer.parseInt(customerId));
 
-                // local time, and UTC time
+                // local time, UTC, EST time
                 ZonedDateTime localStartTime = ZonedDateTime.of(startDatePickerID.getValue(),
                         LocalTime.parse(startTimeTxtFldID.getText()), DateTimeUtil.SYSTEM_ZONE_ID);
                 ZonedDateTime estStartTime = localStartTime.withZoneSameInstant(DateTimeUtil.EST_ZONE_ID);
@@ -155,9 +155,9 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
                 Appointments overlappedApp = null;
                 List<Appointments> allApp = appointmentsDao.findAll();
                 for (Appointments appointments : allApp) {
-                    if (utcStartTime.toLocalDate().equals(appointments.getStartUTC().toLocalDate()) &&
+                    if (utcStartTime.toLocalDate().equals(appointments.getEndUTC().toLocalDate()) &&
                             LanguageUtil.isOverlapping(utcStartTime.toLocalTime(), utcEndTime.toLocalTime(),
-                                    appointments.getStartSystem().toLocalTime(), appointments.getEndUTC().toLocalTime()) &&
+                                    appointments.getStartUTC().toLocalTime(), appointments.getEndUTC().toLocalTime()) &&
                             appointments.getContacts().getId() == curContact.get().getId()
                     ) {
                         overlappedApp = appointments;
@@ -166,7 +166,7 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
 
                 // check overlap
                 if (overlappedApp != null) {
-                    messageLabelID.setText("Appointment overlapped!, "+curContact.get().getContactName() + " have another appointment with "
+                    messageLabelID.setText("Appointment overlapped!, " + curContact.get().getContactName() + " have another appointment with "
                             + overlappedApp.getCustomers().getName() + " (" + overlappedApp.getStartSystem().toLocalTime() +
                             "-" + overlappedApp.getEndSystem().toLocalTime() + ")");
                 }
@@ -177,15 +177,19 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
                 }
 
                 // todo: enable before delivery
-                // should  between business hours ( 8:00 a.m. to 10:00 p.m)
-//                else if (estStartTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
-//                        estStartTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0 ||
-//                        estEndTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
-//                        estEndTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0
-//                ) {
-//                    messageLabelID.setText("Appointment should between business hours (EST-8:00 a.m. to 22:00 p.m, " +
-//                            "based on your selected time the appointment started at "+estStartTime.toLocalTime()+")");
-//                }
+//                 should  between business hours ( 8:00 a.m. to 10:00 p.m)
+                else if (estStartTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
+                        estStartTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0 ||
+                        estEndTime.toLocalTime().compareTo(LocalTime.parse("07:59")) <= 0 ||
+                        estEndTime.toLocalTime().compareTo(LocalTime.parse("21:59")) >= 0
+                ) {
+                    if (ZonedDateTime.now().getOffset() == DateTimeUtil.EST_ZONE_DATE_TIME.getOffset()) {
+                        messageLabelID.setText("Appointment time should be between business hours (EST-8:00 a.m. to 22:00 p.m)");
+                    } else {
+                        messageLabelID.setText("Appointment time should be  between EST business hours (EST-8:00 a.m. to 22:00 p.m, " +
+                                "based on your selected time the appointment started at " + estStartTime.toLocalTime() + ")");
+                    }
+                }
 
                 // invalid customer
                 else if (customers == null) {

@@ -16,7 +16,7 @@
          </font>
       </Label>
       <TableView fx:id="in15minTableViewID" layoutX="14.0" layoutY="52.0" prefHeight="200.0" prefWidth="826.0" />
-      <Label fx:id="appIn15MinTxtLblID" layoutX="14.0" layoutY="259.0" prefHeight="23.0" prefWidth="826.0" style="-fx-alignment: center;" text="app not found message" />
+      <Label fx:id="appIn15MinTxtLblID" layoutX="14.0" layoutY="259.0" prefHeight="23.0" prefWidth="826.0" style="-fx-alignment: center;" />
       <Line endX="723.0" layoutX="115.0" layoutY="292.0" opacity="0.3" startX="-100.0" />
       <Pane layoutX="15.0" layoutY="305.0" prefHeight="188.0" prefWidth="194.0" style="-fx-background-color: ffffff;">
          <children>

@@ -4,6 +4,8 @@ import com.appointments.system.model.Appointments;
 import com.appointments.system.utils.DataTraveler;
 import com.appointments.system.utils.DataUtil;
 import com.appointments.system.utils.FXUtil;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +17,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -73,7 +74,7 @@ public class AppointmentsHomeController implements Initializable, DataTraveler {
         });
 
         if (appointmentsBy15Min.isEmpty()) {
-            appIn15MinTxtLblID.setText("no appointments found in next 15 min");
+            in15minTableViewID.setPlaceholder(new Label("no appointments found in next 15 min"));
         } else {
             appIn15MinTxtLblID.setText(appointmentsBy15Min.size() + " appointments found in next 15 min");
             init15MinTableView(appointmentsBy15Min);
@@ -126,10 +127,18 @@ public class AppointmentsHomeController implements Initializable, DataTraveler {
         column8.setCellValueFactory(new PropertyValueFactory<>("endLocal"));
 
         TableColumn<Appointments, String> column9 = new TableColumn<>("Customer");
-        column9.setCellValueFactory(new PropertyValueFactory<>("customers"));
+        column9.setCellValueFactory(param -> {
+            StringProperty str = new SimpleStringProperty();
+            str.setValue(param.getValue().getCustomers().getName());
+            return str;
+        });
 
         TableColumn<Appointments, String> column10 = new TableColumn<>("User");
-        column10.setCellValueFactory(new PropertyValueFactory<>("users"));
+        column10.setCellValueFactory(param -> {
+            StringProperty str = new SimpleStringProperty();
+            str.setValue(param.getValue().getUsers().getUserName());
+            return str;
+        });
 
         // add columns
         in15minTableViewID.getColumns().add(column1);

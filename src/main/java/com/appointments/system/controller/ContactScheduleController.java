@@ -7,6 +7,8 @@ import com.appointments.system.repo.ContactsDao;
 import com.appointments.system.utils.DataTraveler;
 import com.appointments.system.utils.DataUtil;
 import com.appointments.system.utils.LanguageUtil;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -88,11 +90,19 @@ public class ContactScheduleController implements Initializable, DataTraveler {
         TableColumn<Appointments, String> column7 = new TableColumn<>("Start");
         column7.setCellValueFactory(new PropertyValueFactory<>("startLocal"));
 
-        TableColumn<Appointments, String> column8 = new TableColumn<>("End");
-        column8.setCellValueFactory(new PropertyValueFactory<>("endLocal"));
+        TableColumn<Appointments, String> column8 = new TableColumn<>("Customer");
+        column8.setCellValueFactory(param -> {
+            StringProperty str = new SimpleStringProperty();
+            str.setValue(param.getValue().getCustomers().getName());
+            return str;
+        });
 
-        TableColumn<Appointments, String> column9 = new TableColumn<>("Customer");
-        column9.setCellValueFactory(new PropertyValueFactory<>("customers"));
+        TableColumn<Appointments, String> column9 = new TableColumn<>("User");
+        column9.setCellValueFactory(param -> {
+            StringProperty str = new SimpleStringProperty();
+            str.setValue(param.getValue().getUsers().getUserName());
+            return str;
+        });
 
         // add columns
         conactsTableViewID.getColumns().add(column1);
