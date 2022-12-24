@@ -186,8 +186,10 @@ public class AppointmentsAddController implements Initializable, DataTraveler {
                     if (ZonedDateTime.now().getOffset() == DateTimeUtil.EST_ZONE_DATE_TIME.getOffset()) {
                         messageLabelID.setText("Appointment time should be between business hours (EST-8:00 a.m. to 22:00 p.m)");
                     } else {
-                        messageLabelID.setText("Appointment time should be  between EST business hours (EST-8:00 a.m. to 22:00 p.m, " +
-                                "based on your selected time the appointment started at " + estStartTime.toLocalTime() + ")");
+                        messageLabelID.
+                                setText("Appointment time should be between business hours (EST 8:00-22:00) \n" +
+                                "based on your timezone(" + DateTimeUtil.SYSTEM_ZONE_ID +
+                                ") converted EST appointment start time at " + estStartTime.toLocalTime());
                     }
                 }
 
